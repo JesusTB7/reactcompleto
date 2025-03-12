@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as XLSX from "xlsx";
 import axios from "axios";
-import { Bar } from "react-chartjs-2"; // Importa la gráfica
+import { Bar } from "react-chartjs-2";
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -10,96 +10,105 @@ import {
     BarElement,
     Title,
     Tooltip,
-    Legend,
-} from "chart.js"; // Importa componentes de Chart.js
+    Legend
+} from "chart.js";
 import "./styles.css";
 
 // Registramos los componentes necesarios de Chart.js
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const UsuarioList = () => {
-    const [usuarios, setUsuarios] = useState([]);
+const SensoresList = () => {
+    const [sensores, setSensores] = useState([]);
+    const [botes, setBotes] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
-    const usersPerPage = 5;
+    const sensoresPerPage = 5;
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/usuarios", {
+        // Cargar los sensores
+        axios.get("http://localhost:3000/api/sensor", {
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
         })
         .then(response => {
-            setUsuarios(response.data);
+            console.log("Sensores recibidos:", response.data);
+            setSensores(response.data);
         })
-        .catch(error => console.error("Error al obtener usuarios:", error));
+        .catch(error => console.error("Error al obtener sensores:", error));
+
+        // Cargar la lista de botes
+        axios.get("http://localhost:3000/api/bote", {
+            headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+        })
+        .then(response => {
+            console.log("Botes recibidos:", response.data);
+            setBotes(response.data);
+        })
+        .catch(error => console.error("Error al obtener botes:", error));
     }, []);
 
     const handleDelete = (id) => {
-        if (window.confirm("¿Seguro que deseas borrar este usuario?")) {
-            axios.delete(`http://localhost:3000/api/eliminarusuario/${id}`, {
+        if (window.confirm("¿Seguro que deseas borrar este sensor?")) {
+            axios.delete(`http://localhost:3000/api/eliminarsensor/${id}`, {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
             })
             .then(() => {
-                setUsuarios(prevUsuarios => prevUsuarios.filter(usuario => usuario.id_usuarios !== id));
+                console.log(`Sensor con ID ${id} eliminado`);
+                setSensores(prevSensores => prevSensores.filter(sensor => sensor.id_sensor !== id));
             })
-            .catch(error => console.error("Error al eliminar usuario:", error));
+            .catch(error => console.error("Error al eliminar sensor:", error));
         }
-    };
-
-    const handleLogout = () => {
-        localStorage.removeItem("token");
-        navigate("/login");
     };
 
     const handleRegresar = () => {
         navigate("/principal");
     };
 
-    const handleDownloadExcel = () => {
-        const dataToExport = filteredUsers.map(({ nombre, app, apm, fn, sexo, correo, contrasena }) => ({
-            nombre,
-            app,
-            apm,
-            fn,
-            sexo,
-            correo,
-            contrasena
-        }));
-        const worksheet = XLSX.utils.json_to_sheet(dataToExport);
-        const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, "Usuarios");
-        XLSX.writeFile(workbook, "Lista_Usuarios.xlsx");
+    const getBoteNombre = (idBote) => {
+        const bote = botes.find(bote => bote.id_bote === idBote);
+        return bote ? bote.clave : "Desconocido";
     };
 
-    // Filtrado de usuarios basado en el nombre o correo
-    const filteredUsers = usuarios.filter(usuario =>
-        usuario.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        usuario.correo.toLowerCase().includes(searchTerm.toLowerCase())
+    const handleDownloadExcel = () => {
+        const dataToExport = filteredSensores.map(({  estado, id_bote}) => ({
+            estado,
+            id_bote: getBoteNombre(id_bote)
+        }));
+
+        const worksheet = XLSX.utils.json_to_sheet(dataToExport);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Sensores");
+        XLSX.writeFile(workbook, "Lista_Sensores.xlsx");
+    };
+
+    // Filtrado
+    const filteredSensores = sensores.filter(sensor =>
+        sensor.id_sensor.toString().includes(searchTerm) ||
+        getBoteNombre(sensor.id_bote).toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    // Cálculo del paginado
-    const indexOfLastUser = currentPage * usersPerPage;
-    const indexOfFirstUser = indexOfLastUser - usersPerPage;
-    const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
+    // Paginado
+    const indexOfLastSensor = currentPage * sensoresPerPage;
+    const indexOfFirstSensor = indexOfLastSensor - sensoresPerPage;
+    const currentSensores = filteredSensores.slice(indexOfFirstSensor, indexOfLastSensor);
 
     // Cambiar de página
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-    // Contar usuarios por sexo
-    const sexoCounts = usuarios.reduce((acc, usuario) => {
-        const sexo = usuario.sexo;
-        acc[sexo] = (acc[sexo] || 0) + 1;
-        return acc;
-    }, {});
+    // Contar sensores activos e inactivos
+    const sensoresStatus = {
+        activo: sensores.filter(sensor => sensor.estado.toLowerCase() === "activo").length,
+        inactivo: sensores.filter(sensor => sensor.estado.toLowerCase() === "inactivo").length,
+    };
 
     // Datos para la gráfica
     const chartData = {
-        labels: Object.keys(sexoCounts),
+        labels: ["Activos", "Inactivos"],
         datasets: [
             {
-                label: "Usuarios por Sexo",
-                data: Object.values(sexoCounts),
-                backgroundColor: ["#4caf50", "#ff9800"], // Colores para masculino y femenino
+                label: "Cantidad de Sensores",
+                data: [sensoresStatus.activo, sensoresStatus.inactivo],
+                backgroundColor: ["#4caf50", "#f44336"],
             },
         ],
     };
@@ -116,17 +125,20 @@ const UsuarioList = () => {
 
     return (
         <div>
-            <h2>Lista de Usuarios</h2>
+            <h2>Lista de Sensores</h2>
             <div style={{ display: "flex", justifyContent: "center", marginBottom: "10px" }}>
                 <input
                     type="text"
-                    placeholder="Buscar usuario"
+                    placeholder="Buscar por ID del Sensor o Bote"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     style={{ width: "250px" }}
                 />
             </div>
             <div style={{ display: "flex", justifyContent: "center", marginBottom: "10px", gap:"10px" }}>
+                <Link to="/crearsensor">
+                    <button style={{ fontSize: "12px", padding: "5px 10px" }}>Agregar Sensor</button>
+                </Link>
                 <button 
                     onClick={handleDownloadExcel} 
                     style={{ 
@@ -138,15 +150,15 @@ const UsuarioList = () => {
                         gap: "10px", 
                         display: "flex", 
                         justifyContent: "center", 
-                        width: "fit-content" /* Ajusta el ancho al contenido */
+                        width: "fit-content" 
                     }}
                 >
                     Descargar Excel
                 </button>
                 <button 
-    onClick={() => window.location.href = "/importarusuarios"} 
+    onClick={() => window.location.href = "/importarsensor"} 
     style={{ 
-        backgroundColor: "skyblue", /* Corregido el color */
+        backgroundColor: "skyblue",
         color: "black", 
         fontSize: "12px", 
         padding: "5px 10px", 
@@ -163,64 +175,61 @@ const UsuarioList = () => {
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>NOMBRE</th>
-                        <th>APELLIDO PATERNO</th>
-                        <th>APELLIDO MATERNO</th>
-                        <th>FECHA DE NACIMIENTO</th>
-                        <th>SEXO</th>
-                        <th>CORREO</th>
-                        <th>CONTRASEÑA</th>
+                        <th>ESTADO SENSOR</th>
+                        <th>BOTE</th>
                         <th>ACCIONES</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {currentUsers.length > 0 ? (
-                        currentUsers.map(usuario => (
-                            <tr key={usuario.id_usuarios}>
-                                <td>{usuario.id_usuarios}</td>
-                                <td>{usuario.nombre}</td>
-                                <td>{usuario.app}</td>
-                                <td>{usuario.apm}</td>
-                                <td>{usuario.fn}</td>
-                                <td>{usuario.sexo}</td>
-                                <td>{usuario.correo}</td>
-                                <td>{usuario.contrasena}</td>
+                    {currentSensores.length > 0 ? (
+                        currentSensores.map(sensor => (
+                            <tr key={sensor.id_sensor}>
+                                <td>{sensor.id_sensor}</td>
+                                <td>{sensor.estado}</td>
+                                <td>{getBoteNombre(sensor.id_bote)}</td>
                                 <td>
-                                    <Link to={`/edit/${usuario.id_usuarios}`}>
+                                    <Link to={`/editsensor/${sensor.id_sensor}`}>
                                         <button>Editar</button>
                                     </Link>
-                                    <button onClick={() => handleDelete(usuario.id_usuarios)}>Eliminar</button>
+                                    <button onClick={() => handleDelete(sensor.id_sensor)}>Eliminar</button>
                                 </td>
                             </tr>
                         ))
                     ) : (
                         <tr>
-                            <td colSpan="9">No hay usuarios</td>
+                            <td colSpan="4">No hay sensores registrados</td>
                         </tr>
                     )}
                 </tbody>
             </table>
             <div style={{ marginTop: "10px", textAlign: "center", fontSize: "14px" }}>
-                <span 
+                <span
                     style={{ cursor: "pointer", marginRight: "10px" }}
                     onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}>
                     &lt; Anterior
                 </span>
                 <span> Página {currentPage} </span>
-                <span 
+                <span
                     style={{ cursor: "pointer", marginLeft: "10px" }}
-                    onClick={() => setCurrentPage(prev => (indexOfLastUser < filteredUsers.length ? prev + 1 : prev))}>
+                    onClick={() => setCurrentPage(prev => (indexOfLastSensor < filteredSensores.length ? prev + 1 : prev))}>
                     Siguiente &gt;
                 </span>
             </div>
 
-            {/* Contenedor para la gráfica de usuarios por sexo */}
+            {/* Contenedor para la gráfica */}
             <div style={{ marginTop: "20px", textAlign: "center" }}>
-                <div style={{ width: "60%", maxWidth: "400px", margin: "20px auto" }}>
+                <div
+                    style={{
+                        width: "80%",
+                        maxWidth: "400px", // Límite de ancho
+                        margin: "20px auto", // Centrar el contenedor
+                    }}
+                >
                     <Bar data={chartData} options={chartOptions} />
                 </div>
             </div>
 
+            {/* Botón Regresar */}
             <div style={{ marginTop: "10px", textAlign: "center" }}>
                 <button 
                     onClick={handleRegresar} 
@@ -242,4 +251,4 @@ const UsuarioList = () => {
     );
 };
 
-export default UsuarioList;
+export default SensoresList;

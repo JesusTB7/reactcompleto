@@ -41,7 +41,7 @@ const UsuarioEdit = () => {
         setIsUpdating(true);
         setMessage("Actualizando usuario...");
 
-        axios.put(`http://localhost:3000/api/actualizar/${id_usuarios}`, usuario)
+        axios.put(`http://localhost:3000/api/actualizarusuario/${id_usuarios}`, usuario)
             .then(response => {
                 console.log("Respuesta del servidor:", response.data);
                 setMessage("Actualización exitosa. Redirigiendo...");
@@ -88,15 +88,7 @@ const UsuarioEdit = () => {
                     <input type="email" name="correo" value={usuario.correo} onChange={handleChange} required />
 
                     <label htmlFor="contrasena">Contraseña</label>
-<input 
-  type="password" 
-  name="contrasena" 
-  value={usuario.contrasena} 
-  onChange={handleChange} 
-  required 
-  pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$" 
-  title="La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un símbolo como #, @, $, etc."
-/>
+                    <input type="password" name="contrasena" value={usuario.contrasena} onChange={handleChange} required pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$" title="La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un símbolo como #, @, $, etc."/>
 
 
                     <div className="button-group">

@@ -37,8 +37,21 @@ const RecuperarContrasena = () => {
     }
   };
 
+  const validatePassword = (password) => {
+    const mayuscula = /[A-Z]/.test(password);
+    const minuscula = /[a-z]/.test(password);
+    const numero = /[0-9]/.test(password);
+    const simbolo = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    return mayuscula && minuscula && numero && simbolo;
+  };
+
   const handleActualizarContrasena = async () => {
     if (nuevaContrasena === confirmarContrasena) {
+      if (!validatePassword(nuevaContrasena)) {
+        setMensaje("La contraseña debe contener al menos una mayúscula, un número, un símbolo y una minúscula.");
+        return;
+      }
+
       setCargando(true); // Activar animación de carga
       try {
         const response = await axios.put("http://localhost:3000/api/actualizar-contrasena", {
@@ -101,8 +114,8 @@ const RecuperarContrasena = () => {
                 borderRadius: "5px"
               }}
             />
-            <button 
-              onClick={handleRecuperarContrasena} 
+            <button
+              onClick={handleRecuperarContrasena}
               style={{
                 width: "100%",
                 padding: "10px",
@@ -116,13 +129,11 @@ const RecuperarContrasena = () => {
               Cambiar Contraseña
             </button>
             <button type="button" onClick={() => navigate("/login")} className="cancel-button">
-                            Cancelar
-                        </button>
+              Cancelar
+            </button>
             {mensaje && <p style={{ color: "red" }}>{mensaje}</p>}
           </div>
-          
         )}
-        
 
         {step === 2 && (
           <div>
@@ -153,7 +164,7 @@ const RecuperarContrasena = () => {
                 borderRadius: "5px"
               }}
             />
-            <button 
+            <button
               onClick={handleActualizarContrasena}
               style={{
                 width: "100%",
@@ -168,7 +179,7 @@ const RecuperarContrasena = () => {
             >
               {cargando ? "Cambiando..." : "Actualizar contraseña"}
             </button>
-            {mensaje && <p style={{ color: "green" }}>{mensaje}</p>}
+            {mensaje && <p style={{ color: "red" }}>{mensaje}</p>}
           </div>
         )}
       </div>
