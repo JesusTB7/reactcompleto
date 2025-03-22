@@ -20,7 +20,7 @@ const UsuarioEdit = () => {
     const [message, setMessage] = useState("");
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/api/usuarios/${id_usuarios}`)
+        axios.get(`http://localhost:5000/users/usuario/${id_usuarios}`)
             .then(response => {
                 console.log("Datos recibidos:", response.data);
                 setUsuario(response.data);
@@ -41,11 +41,11 @@ const UsuarioEdit = () => {
         setIsUpdating(true);
         setMessage("Actualizando usuario...");
 
-        axios.put(`http://localhost:3000/api/actualizarusuario/${id_usuarios}`, usuario)
+        axios.put(`http://localhost:5000/users/actualizarusuario/${id_usuarios}`, usuario)
             .then(response => {
                 console.log("Respuesta del servidor:", response.data);
                 setMessage("Actualización exitosa. Redirigiendo...");
-                setTimeout(() => navigate("/usuarios"), 2000);
+                setTimeout(() => navigate("/users/usuarios"), 2000);
             })
             .catch(error => {
                 console.error("Error al actualizar el usuario:", error);
@@ -95,7 +95,7 @@ const UsuarioEdit = () => {
                         <button type="submit" disabled={isUpdating}>
                             {isUpdating ? "Cargando..." : "Actualizar Usuario"}
                         </button>
-                        <button type="button" onClick={() => navigate("/usuarios")} className="cancel-button">
+                        <button type="button" onClick={() => navigate("/users/usuarios")} className="cancel-button">
                             Cancelar
                         </button>
                     </div>

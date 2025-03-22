@@ -28,7 +28,7 @@ const EstadoList = () => {
     useEffect(() => {
         // Cargar los estados
         axios
-            .get("http://localhost:3000/api/estado", {
+            .get("http://localhost:5000/state/estados", {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
             })
             .then((response) => {
@@ -39,7 +39,7 @@ const EstadoList = () => {
 
         // Cargar la lista de países
         axios
-            .get("http://localhost:3000/api/pais", {
+            .get("http://localhost:5000/country/paises", {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
             })
             .then((response) => {
@@ -52,7 +52,7 @@ const EstadoList = () => {
     const handleDelete = (id) => {
         if (window.confirm("¿Seguro que deseas borrar este estado?")) {
             axios
-                .delete(`http://localhost:3000/api/eliminarestado/${id}`, {
+                .delete(`http://localhost:5000/state/eliminarestado/${id}`, {
                     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
                 })
                 .then(() => {
@@ -65,7 +65,7 @@ const EstadoList = () => {
 
     const handleLogout = () => {
         localStorage.removeItem("token");
-        navigate("/login");
+        navigate("/users/login");
     };
 
     const handleRegresar = () => {
@@ -143,7 +143,7 @@ const EstadoList = () => {
                 />
             </div>
             <div style={{ display: "flex", justifyContent: "center", marginBottom: "10px", gap: "10px" }}>
-                <Link to="/crearestado">
+                <Link to="/state/crearestado">
                     <button style={{ fontSize: "12px", padding: "5px 10px" }}>Agregar Estado</button>
                 </Link>
                 <button
@@ -162,21 +162,6 @@ const EstadoList = () => {
                 >
                     Descargar Excel
                 </button>
-                <button 
-    onClick={() => window.location.href = "/importarestado"} 
-    style={{ 
-        backgroundColor: "skyblue",
-        color: "black", 
-        fontSize: "12px", 
-        padding: "5px 10px", 
-        marginBottom: "10px", 
-        gap: "10px", 
-        display: "flex", 
-        justifyContent: "center", 
-        width: "fit-content"
-    }}>
-    Importar
-</button>
             </div>
 
             <table>
@@ -196,7 +181,7 @@ const EstadoList = () => {
                                 <td>{estado.nombre}</td>
                                 <td>{getPaisNombre(estado.id_pais)}</td>
                                 <td>
-                                    <Link to={`/editestado/${estado.id_estado}`}>
+                                    <Link to={`/state/actualizarestado/${estado.id_estado}`}>
                                         <button>Editar</button>
                                     </Link>
                                     <button onClick={() => handleDelete(estado.id_estado)}>Eliminar</button>

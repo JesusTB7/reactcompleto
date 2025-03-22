@@ -17,14 +17,14 @@ const AsignacionesForm = () => {
 
     useEffect(() => {
         // Cargar la lista de botes
-        axios.get("http://localhost:3000/api/bote")
+        axios.get("http://localhost:5000/bot/botes")
             .then(response => {
                 setBotes(response.data);
             })
             .catch(error => console.error("Error al cargar los botes:", error));
 
         // Cargar la lista de usuarios
-        axios.get("http://localhost:3000/api/usuarios", {
+        axios.get("http://localhost:5000/users/usuarios", {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}` // Obtiene el token del almacenamiento local
             }
@@ -44,13 +44,13 @@ const AsignacionesForm = () => {
         e.preventDefault();
         setLoading(true);
 
-        axios.post("http://localhost:3000/api/crearasignacion", asignacion)
+        axios.post("http://localhost:5000/asig/crearasignacion", asignacion)
             .then(() => {
                 setLoading(false);
                 setSuccess(true);
 
                 setTimeout(() => {
-                    navigate("/asignacion"); // Redirigir a la lista de asignaciones
+                    navigate("/asig/asignaciones"); // Redirigir a la lista de asignaciones
                 }, 2000);
             })
             .catch(error => {
@@ -105,7 +105,7 @@ const AsignacionesForm = () => {
 
                     <button type="submit">Agregar Asignación</button>
                     <p>
-                        <span onClick={() => navigate("/asignacion")} style={{ cursor: "pointer", color: "blue", textDecoration: "none" }}>
+                        <span onClick={() => navigate("/asig/asignaciones")} style={{ cursor: "pointer", color: "blue", textDecoration: "none" }}>
                             Regresar al Inicio
                         </span>
                     </p>

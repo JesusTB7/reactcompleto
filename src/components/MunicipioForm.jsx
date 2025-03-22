@@ -15,7 +15,7 @@ const MunicipioForm = () => {
 
     useEffect(() => {
         // Cargar la lista de estados
-        axios.get("http://localhost:3000/api/estado")
+        axios.get("http://localhost:5000/state/estados")
             .then(response => {
                 setEstados(response.data);
             })
@@ -31,13 +31,13 @@ const MunicipioForm = () => {
         e.preventDefault();
         setLoading(true);
 
-        axios.post("http://localhost:3000/api/crearmunicipio", municipio)
+        axios.post("http://localhost:5000/muni/crearmunicipio", municipio)
             .then(() => {
                 setLoading(false);
                 setSuccess(true);
 
                 setTimeout(() => {
-                    navigate("/municipio"); // Redirigir a la lista de municipios
+                    navigate("/muni/municipios"); // Redirigir a la lista de municipios
                 }, 2000);
             })
             .catch(error => {
@@ -81,7 +81,7 @@ const MunicipioForm = () => {
 
                     <button type="submit">Agregar Municipio</button>
                     <p>
-                        <span onClick={() => navigate("/municipio")} style={{ cursor: "pointer", color: "blue", textDecoration: "none" }}>
+                        <span onClick={() => navigate("/muni/municipios")} style={{ cursor: "pointer", color: "blue", textDecoration: "none" }}>
                             Regresar al Inicio
                         </span>
                     </p>

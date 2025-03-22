@@ -25,7 +25,7 @@ const UsuarioList = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/usuarios", {
+        axios.get("http://localhost:5000/users/usuarios", {
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
         })
         .then(response => {
@@ -36,7 +36,7 @@ const UsuarioList = () => {
 
     const handleDelete = (id) => {
         if (window.confirm("¿Seguro que deseas borrar este usuario?")) {
-            axios.delete(`http://localhost:3000/api/eliminarusuario/${id}`, {
+            axios.delete(`http://localhost:5000/users/eliminarusuario/${id}`, {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
             })
             .then(() => {
@@ -48,7 +48,7 @@ const UsuarioList = () => {
 
     const handleLogout = () => {
         localStorage.removeItem("token");
-        navigate("/login");
+        navigate("/users/login");
     };
 
     const handleRegresar = () => {
@@ -144,7 +144,7 @@ const UsuarioList = () => {
                     Descargar Excel
                 </button>
                 <button 
-    onClick={() => window.location.href = "/importarusuarios"} 
+    onClick={() => window.location.href = "/users/importarusuario"} 
     style={{ 
         backgroundColor: "skyblue", /* Corregido el color */
         color: "black", 
@@ -186,7 +186,7 @@ const UsuarioList = () => {
                                 <td>{usuario.correo}</td>
                                 <td>{usuario.contrasena}</td>
                                 <td>
-                                    <Link to={`/edit/${usuario.id_usuarios}`}>
+                                    <Link to={`/users/actualizarusuario/${usuario.id_usuarios}`}>
                                         <button>Editar</button>
                                     </Link>
                                     <button onClick={() => handleDelete(usuario.id_usuarios)}>Eliminar</button>

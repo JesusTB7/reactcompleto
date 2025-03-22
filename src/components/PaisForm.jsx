@@ -21,13 +21,13 @@ const PaisForm = () => {
         e.preventDefault();
         setLoading(true);
         
-        axios.post("http://localhost:3000/api/crearpais", pais)
+        axios.post("http://localhost:5000/country/crearpais", pais)
             .then(() => {
                 setLoading(false);
                 setSuccess(true);
 
                 setTimeout(() => {
-                    navigate("/pais"); // Redirigir a la página principal después de mostrar el mensaje
+                    navigate("/country/paises"); // Redirigir a la página principal después de mostrar el mensaje
                 }, 2000);
             })
             .catch(error => {
@@ -54,7 +54,7 @@ const PaisForm = () => {
                     <input type="text" name="nombre" placeholder="Nombre del País" onChange={handleChange} required />
 
                     <button type="submit">Agregar País</button>
-                    <p><span onClick={() => navigate("/pais")} style={{ cursor: "pointer", color: "blue", textDecoration: "none" }}>Regresar al Inicio</span></p>
+                    <p><span onClick={() => navigate("/country/paises")} style={{ cursor: "pointer", color: "blue", textDecoration: "none" }}>Regresar al Inicio</span></p>
                 </form>
             )}
         </div>

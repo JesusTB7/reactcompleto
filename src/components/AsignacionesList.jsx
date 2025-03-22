@@ -28,21 +28,21 @@ const AsignacionesList = () => {
 
     useEffect(() => {
         // Cargar asignaciones
-        axios.get("http://localhost:3000/api/asignacion", {
+        axios.get("http://localhost:5000/asig/asignaciones", {
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
         })
         .then(response => setAsignaciones(response.data))
         .catch(error => console.error("Error al obtener asignaciones:", error));
 
         // Cargar botes
-        axios.get("http://localhost:3000/api/bote", {
+        axios.get("http://localhost:5000/bot/botes", {
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
         })
         .then(response => setBotes(response.data))
         .catch(error => console.error("Error al obtener botes:", error));
 
         // Cargar usuarios
-        axios.get("http://localhost:3000/api/usuarios", {
+        axios.get("http://localhost:5000/users/usuarios", {
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
         })
         .then(response => setUsuarios(response.data))
@@ -51,7 +51,7 @@ const AsignacionesList = () => {
 
     const handleDelete = (id) => {
         if (window.confirm("¿Seguro que deseas borrar esta asignación?")) {
-            axios.delete(`http://localhost:3000/api/eliminarasignacion/${id}`, {
+            axios.delete(`http://localhost:5000/asig/eliminarasignacion/${id}`, {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
             })
             .then(() => setAsignaciones(prev => prev.filter(asignacion => asignacion.id_asignacion !== id)))
@@ -144,7 +144,7 @@ const AsignacionesList = () => {
                 />
             </div>
             <div style={{ display: "flex", justifyContent: "center", marginBottom: "10px", gap: "10px" }}>
-                <Link to="/crearasignacion">
+                <Link to="/asig/crearasignacion">
                     <button style={{ fontSize: "12px", padding: "5px 10px" }}>Agregar Asignación</button>
                 </Link>
                 <button 
@@ -162,21 +162,6 @@ const AsignacionesList = () => {
                     }}>
                     Descargar Excel
                 </button>
-                <button 
-    onClick={() => window.location.href = "/importarasignacion"} 
-    style={{ 
-        backgroundColor: "skyblue",
-        color: "black", 
-        fontSize: "12px", 
-        padding: "5px 10px", 
-        marginBottom: "10px", 
-        gap: "10px", 
-        display: "flex", 
-        justifyContent: "center", 
-        width: "fit-content"
-    }}>
-    Importar
-</button>
             </div>
             <table>
                 <thead>
@@ -197,7 +182,7 @@ const AsignacionesList = () => {
                                 <td>{getClaveBote(asignacion.id_bote)}</td>
                                 <td>{getNombreUsuario(asignacion.id_usuarios)}</td>
                                 <td>
-                                    <Link to={`/editasignacion/${asignacion.id_asignacion}`}>
+                                    <Link to={`/asig/actualizarasignacion/${asignacion.id_asignacion}`}>
                                         <button>Editar</button>
                                     </Link>
                                     <button onClick={() => handleDelete(asignacion.id_asignacion)}>Eliminar</button>

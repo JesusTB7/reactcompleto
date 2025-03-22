@@ -49,28 +49,26 @@ const Login = () => {
         setLoading(true);
         setError("");
         
-        axios
-            .post("http://localhost:3000/api/login", usuario, {
-                headers: { "Content-Type": "application/json" }
-            })
-            .then(response => {
-                if (response.data.token) {
-                    localStorage.setItem("token", response.data.token);
-                    setIntentos(0);
-                    setBloqueado(false);
-                    localStorage.removeItem("bloqueo");
-
-                    setTimeout(() => {
-                        navigate("/principal");
-                        window.location.reload();
-                    }, 1000);
-                } else {
-                    manejarIntentoFallido();
-                }
-            })
-            .catch(() => {
+        axios.post("http://localhost:5000/users/login", usuario, {
+            headers: { "Content-Type": "application/json" }
+        })
+        .then(response => {
+            console.log("Respuesta completa del backend:", response.data);
+        
+            if (response.data.access_token) {
+                console.log("Token recibido:", response.data.access_token);
+                localStorage.setItem("token", response.data.access_token);
+                navigate("/principal");
+                window.location.reload();
+            } else {
+                console.warn("No se recibió un token en la respuesta.");
                 manejarIntentoFallido();
-            });
+            }
+        })
+        .catch(error => {
+            console.error("Error en la solicitud:", error.response ? error.response.data : error);
+            manejarIntentoFallido();
+        });
     };
 
     const manejarIntentoFallido = () => {
@@ -116,11 +114,11 @@ const Login = () => {
             }}
         >
             <div className="form-box">
-            <img 
-        src="/img/Logo.jpg" 
-        alt="Login" 
-        className="login-image"
-    />
+                <img 
+                    src="/img/Logo.jpg" 
+                    alt="Login" 
+                    className="login-image"
+                />
                 <h2>Iniciar Sesión</h2>
                 <form onSubmit={handleLogin}>
                     <label>Email</label>
@@ -156,11 +154,11 @@ const Login = () => {
                     
                     <p>
                         ¿No tiene cuenta? {" "}
-                        <span onClick={() => navigate("/crear")} style={{ cursor: "pointer", color: "blue", textDecoration: "none" }}>Regístrese</span>
+                        <span onClick={() => navigate("/users/crearusuario")} style={{ cursor: "pointer", color: "blue", textDecoration: "none" }}>Regístrese</span>
                     </p>
                     <p>
                         ¿Has olvidado tu contraseña? {" "}
-                        <span onClick={() => navigate("/recuperar")} style={{ cursor: "pointer", color: "blue", textDecoration: "none" }}>Recupérala aquí</span>
+                        <span onClick={() => navigate("/users/recuperar")} style={{ cursor: "pointer", color: "blue", textDecoration: "none" }}>Recupérala aquí</span>
                     </p>
                 </form>
             </div>
@@ -178,12 +176,11 @@ const Login = () => {
                     }
 
                     .login-image {
-    width: 100px;
-    height: auto;
-    display: block;
-    margin: 0 auto 10px; /* Centra la imagen y agrega margen inferior */
-}
-
+                        width: 100px;
+                        height: auto;
+                        display: block;
+                        margin: 0 auto 10px; /* Centra la imagen y agrega margen inferior */
+                    }
 
                     .loading-animation {
                         font-size: 16px;

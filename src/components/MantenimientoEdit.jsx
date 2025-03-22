@@ -15,7 +15,7 @@ const MantenimientoEdit = () => {
 
     useEffect(() => {
         // Cargar los datos del mantenimiento
-        axios.get(`http://localhost:3000/api/mantenimiento/${id_mantenimiento}`)
+        axios.get(`http://localhost:5000/mant/mantenimiento/${id_mantenimiento}`)
             .then(response => {
                 console.log("Datos del mantenimiento recibidos:", response.data);
                 
@@ -34,7 +34,7 @@ const MantenimientoEdit = () => {
             });
 
         // Cargar la lista de usuarios
-        axios.get("http://localhost:3000/api/usuarios", {
+        axios.get("http://localhost:5000/users/usuarios", {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}` // Obtiene el token del almacenamiento local
             }
@@ -45,7 +45,7 @@ const MantenimientoEdit = () => {
         .catch(error => console.error("Error al cargar los usuarios:", error));
 
         // Cargar la lista de botes
-        axios.get("http://localhost:3000/api/bote")
+        axios.get("http://localhost:5000/bot/botes")
             .then(response => {
                 console.log("Lista de botes recibida:", response.data);
                 setBotes(response.data);
@@ -62,11 +62,11 @@ const MantenimientoEdit = () => {
         setIsUpdating(true);
         setMessage("Actualizando mantenimiento...");
 
-        axios.put(`http://localhost:3000/api/actualizarmantenimiento/${id_mantenimiento}`, mantenimiento)
+        axios.put(`http://localhost:5000/mant/actualizarmantenimiento/${id_mantenimiento}`, mantenimiento)
             .then(response => {
                 console.log("Respuesta del servidor:", response.data);
                 setMessage("Actualización exitosa. Redirigiendo...");
-                setTimeout(() => navigate("/mantenimiento"), 2000);
+                setTimeout(() => navigate("/mant/mantenimientos"), 2000);
             })
             .catch(error => {
                 console.error("Error al actualizar el mantenimiento:", error);
@@ -126,7 +126,7 @@ const MantenimientoEdit = () => {
                         <button type="submit" disabled={isUpdating}>
                             {isUpdating ? "Cargando..." : "Actualizar Mantenimiento"}
                         </button>
-                        <button type="button" onClick={() => navigate("/mantenimiento")} className="cancel-button">
+                        <button type="button" onClick={() => navigate("/mant/mantenimientos")} className="cancel-button">
                             Cancelar
                         </button>
                     </div>

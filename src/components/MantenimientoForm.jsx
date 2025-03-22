@@ -17,7 +17,7 @@ const MantenimientoForm = () => {
 
     useEffect(() => {
         // Cargar la lista de usuarios
-        axios.get("http://localhost:3000/api/usuarios", {
+        axios.get("http://localhost:5000/users/usuarios", {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}` // Obtiene el token del almacenamiento local
             }
@@ -29,7 +29,7 @@ const MantenimientoForm = () => {
         
 
         // Cargar la lista de botes
-        axios.get("http://localhost:3000/api/bote")
+        axios.get("http://localhost:5000/bot/botes")
             .then(response => {
                 setBotes(response.data);
             })
@@ -45,13 +45,13 @@ const MantenimientoForm = () => {
         e.preventDefault();
         setLoading(true);
 
-        axios.post("http://localhost:3000/api/crearmantenimiento", mantenimiento)
+        axios.post("http://localhost:5000/mant/crearmantenimiento", mantenimiento)
             .then(() => {
                 setLoading(false);
                 setSuccess(true);
 
                 setTimeout(() => {
-                    navigate("/mantenimiento");
+                    navigate("/mant/mantenimientos");
                 }, 2000);
             })
             .catch(error => {
@@ -104,7 +104,7 @@ const MantenimientoForm = () => {
 
                     <button type="submit">Agregar Mantenimiento</button>
                     <p>
-                        <span onClick={() => navigate("/mantenimiento")} style={{ cursor: "pointer", color: "blue", textDecoration: "none" }}>
+                        <span onClick={() => navigate("/mant/mantenimientos")} style={{ cursor: "pointer", color: "blue", textDecoration: "none" }}>
                             Regresar al Inicio
                         </span>
                     </p>

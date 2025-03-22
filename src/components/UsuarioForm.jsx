@@ -27,19 +27,20 @@ const UsuarioForm = () => {
         e.preventDefault();
         setLoading(true);
         
-        axios.post("http://localhost:3000/api/crear", usuario)
-            .then(() => {
-                setLoading(false);
-                setSuccess(true);
+        axios.post("http://localhost:5000/users/crearusuario", usuario)
+    .then(() => {
+        setLoading(false);
+        setSuccess(true);
+        console.log("Registro exitoso. Redirigiendo...");
+        setTimeout(() => {
+            navigate("/users/login");
+        }, 2000);
+    })
+    .catch(error => {
+        console.error(error);
+        setLoading(false);
+    });
 
-                setTimeout(() => {
-                    navigate("/login"); // Redirigir al login después de mostrar el mensaje
-                }, 2000);
-            })
-            .catch(error => {
-                console.error(error);
-                setLoading(false);
-            });
     };
 
     return (
@@ -92,7 +93,7 @@ const UsuarioForm = () => {
 
 
                     <button type="submit">Agregar Usuario</button>
-                    <p><span onClick={() => navigate("/login")} style={{ cursor: "pointer", color: "blue", textDecoration: "none" }}>Regresar al Inicio</span></p>
+                    <p><span onClick={() => navigate("/users/login")} style={{ cursor: "pointer", color: "blue", textDecoration: "none" }}>Regresar al Inicio</span></p>
                 </form>
             )}
         </div>

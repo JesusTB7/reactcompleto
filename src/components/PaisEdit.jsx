@@ -12,7 +12,7 @@ const PaisEdit = () => {
     const [message, setMessage] = useState("");
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/api/pais/${id_pais}`)
+        axios.get(`http://localhost:5000/country/pais/${id_pais}`)
             .then(response => {
                 console.log("Datos recibidos:", response.data);
                 setPais(response.data);
@@ -33,11 +33,11 @@ const PaisEdit = () => {
         setIsUpdating(true);
         setMessage("Actualizando país...");
 
-        axios.put(`http://localhost:3000/api/actualizarpais/${id_pais}`, pais)
+        axios.put(`http://localhost:5000/country/actualizarpais/${id_pais}`, pais)
             .then(response => {
                 console.log("Respuesta del servidor:", response.data);
                 setMessage("Actualización exitosa. Redirigiendo...");
-                setTimeout(() => navigate("/pais"), 2000);
+                setTimeout(() => navigate("/country/paises"), 2000);
             })
             .catch(error => {
                 console.error("Error al actualizar el país:", error);
@@ -62,7 +62,7 @@ const PaisEdit = () => {
                         <button type="submit" disabled={isUpdating}>
                             {isUpdating ? "Cargando..." : "Actualizar País"}
                         </button>
-                        <button type="button" onClick={() => navigate("/pais")} className="cancel-button">
+                        <button type="button" onClick={() => navigate("/country/paises")} className="cancel-button">
                             Cancelar
                         </button>
                     </div>

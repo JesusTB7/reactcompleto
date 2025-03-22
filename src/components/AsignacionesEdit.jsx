@@ -15,7 +15,7 @@ const AsignacionesEdit = () => {
 
     useEffect(() => {
         // Cargar los datos de la asignación
-        axios.get(`http://localhost:3000/api/asignacion/${id_asignacion}`)
+        axios.get(`http://localhost:5000/asig/asignacion/${id_asignacion}`)
             .then(response => {
                 console.log("Datos de la asignación recibidos:", response.data);
                 setAsignacion(response.data);
@@ -27,7 +27,7 @@ const AsignacionesEdit = () => {
             });
 
         // Cargar la lista de botes
-        axios.get("http://localhost:3000/api/bote")
+        axios.get("http://localhost:5000/bot/botes")
             .then(response => {
                 console.log("Lista de botes recibida:", response.data);
                 setBotes(response.data);
@@ -35,8 +35,7 @@ const AsignacionesEdit = () => {
             .catch(error => console.error("Error al cargar los botes:", error));
 
         // Cargar la lista de usuarios
-        // Cargar la lista de usuarios
-axios.get("http://localhost:3000/api/usuarios", {
+axios.get("http://localhost:5000/users/usuarios", {
     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
 })
 .then(response => {
@@ -56,11 +55,11 @@ axios.get("http://localhost:3000/api/usuarios", {
         setIsUpdating(true);
         setMessage("Actualizando asignación...");
 
-        axios.put(`http://localhost:3000/api/actualizarasignacion/${id_asignacion}`, asignacion)
+        axios.put(`http://localhost:5000/asig/actualizarasignacion/${id_asignacion}`, asignacion)
             .then(response => {
                 console.log("Respuesta del servidor:", response.data);
                 setMessage("Actualización exitosa. Redirigiendo...");
-                setTimeout(() => navigate("/asignacion"), 2000);
+                setTimeout(() => navigate("/asig/asignaciones"), 2000);
             })
             .catch(error => {
                 console.error("Error al actualizar la asignación:", error);
@@ -105,7 +104,7 @@ axios.get("http://localhost:3000/api/usuarios", {
                         <button type="submit" disabled={isUpdating}>
                             {isUpdating ? "Cargando..." : "Actualizar Asignación"}
                         </button>
-                        <button type="button" onClick={() => navigate("/asignacion")} className="cancel-button">
+                        <button type="button" onClick={() => navigate("/asig/asignaciones")} className="cancel-button">
                             Cancelar
                         </button>
                     </div>

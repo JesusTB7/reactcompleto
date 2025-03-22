@@ -28,7 +28,7 @@ const MantenimientoList = () => {
 
     useEffect(() => {
         // Cargar mantenimientos
-        axios.get("http://localhost:3000/api/mantenimiento", {
+        axios.get("http://localhost:5000/mant/mantenimientos", {
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
         })
         .then(response => {
@@ -38,7 +38,7 @@ const MantenimientoList = () => {
         .catch(error => console.error("Error al obtener mantenimientos:", error));
 
         // Cargar usuarios
-        axios.get("http://localhost:3000/api/usuarios", {
+        axios.get("http://localhost:5000/users/usuarios", {
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
         })
         .then(response => {
@@ -48,7 +48,7 @@ const MantenimientoList = () => {
         .catch(error => console.error("Error al obtener usuarios:", error));
 
         // Cargar botes
-        axios.get("http://localhost:3000/api/bote", {
+        axios.get("http://localhost:5000/bot/botes", {
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
         })
         .then(response => {
@@ -60,7 +60,7 @@ const MantenimientoList = () => {
 
     const handleDelete = (id) => {
         if (window.confirm("¿Seguro que deseas borrar este mantenimiento?")) {
-            axios.delete(`http://localhost:3000/api/eliminarmantenimiento/${id}`, {
+            axios.delete(`http://localhost:5000/mant/eliminarmantenimiento/${id}`, {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
             })
             .then(() => {
@@ -158,7 +158,7 @@ const MantenimientoList = () => {
                 />
             </div>
             <div style={{ display: "flex", justifyContent: "center", marginBottom: "10px", gap:"10px" }}>
-                <Link to="/crearmantenimiento">
+                <Link to="/mant/crearmantenimiento">
                     <button style={{ fontSize: "12px", padding: "5px 10px" }}>Agregar Mantenimiento</button>
                 </Link>
                 <button 
@@ -177,21 +177,6 @@ const MantenimientoList = () => {
                 >
                     Descargar Excel
                 </button>
-                <button 
-    onClick={() => window.location.href = "/importarmantenimiento"} 
-    style={{ 
-        backgroundColor: "skyblue",
-        color: "black", 
-        fontSize: "12px", 
-        padding: "5px 10px", 
-        marginBottom: "10px", 
-        gap: "10px", 
-        display: "flex", 
-        justifyContent: "center", 
-        width: "fit-content"
-    }}>
-    Importar
-</button>
             </div>
             <table>
                 <thead>
@@ -212,7 +197,7 @@ const MantenimientoList = () => {
                                 <td>{getUsuarioNombre(mantenimiento.id_usuarios)}</td>
                                 <td>{getBoteNombre(mantenimiento.id_bote)}</td>
                                 <td>
-                                    <Link to={`/editmantenimiento/${mantenimiento.id_mantenimiento}`}>
+                                    <Link to={`/mant/actualizarmantenimiento/${mantenimiento.id_mantenimiento}`}>
                                         <button>Editar</button>
                                     </Link>
                                     <button onClick={() => handleDelete(mantenimiento.id_mantenimiento)}>Eliminar</button>

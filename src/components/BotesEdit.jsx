@@ -14,7 +14,7 @@ const BotesEdit = () => {
 
     useEffect(() => {
         // Cargar los datos del bote
-        axios.get(`http://localhost:3000/api/bote/${id_bote}`)
+        axios.get(`http://localhost:5000/bot/bote/${id_bote}`)
             .then(response => {
                 console.log("Datos del bote recibidos:", response.data);
                 setBote(response.data);
@@ -26,7 +26,7 @@ const BotesEdit = () => {
             });
 
         // Cargar la lista de municipios
-        axios.get("http://localhost:3000/api/municipio")
+        axios.get("http://localhost:5000/muni/municipios")
             .then(response => {
                 console.log("Lista de municipios recibida:", response.data);
                 setMunicipios(response.data);
@@ -44,11 +44,11 @@ const BotesEdit = () => {
         setIsUpdating(true);
         setMessage("Actualizando bote...");
 
-        axios.put(`http://localhost:3000/api/actualizarbote/${id_bote}`, bote)
+        axios.put(`http://localhost:5000/bot/actualizarbote/${id_bote}`, bote)
             .then(response => {
                 console.log("Respuesta del servidor:", response.data);
                 setMessage("Actualización exitosa. Redirigiendo...");
-                setTimeout(() => navigate("/bote"), 2000);
+                setTimeout(() => navigate("/bot/botes"), 2000);
             })
             .catch(error => {
                 console.error("Error al actualizar el bote:", error);
@@ -99,7 +99,7 @@ const BotesEdit = () => {
                         <button type="submit" disabled={isUpdating}>
                             {isUpdating ? "Cargando..." : "Actualizar Bote"}
                         </button>
-                        <button type="button" onClick={() => navigate("/bote")} className="cancel-button">
+                        <button type="button" onClick={() => navigate("/bot/botes")} className="cancel-button">
                             Cancelar
                         </button>
                     </div>

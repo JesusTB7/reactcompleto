@@ -31,10 +31,10 @@ const ImpUsuarios = () => {
         for (const row of rows) {
           const { nombre, app, apm, fn, sexo, correo, contrasena } = row;
           const usuario = { nombre, app, apm, fn, sexo, correo, contrasena };
-          await axios.post('http://localhost:3000/api/importarusuarios', usuario);
+          await axios.post('http://localhost:5000/users/crearusuario', usuario);
         }
         alert('Datos cargados correctamente');
-        navigate('/usuarios');
+        navigate('/users/usuarios');
       } catch (error) {
         console.error('Error al cargar los datos:', error);
         alert('Hubo un error al cargar los datos');
@@ -51,7 +51,7 @@ const ImpUsuarios = () => {
       <button onClick={handleUpload} style={{ padding: '10px 15px', margin: '5px', backgroundColor: '#28a745', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>
         Subir
       </button>
-      <button onClick={() => navigate('/usuarios')} style={{ padding: '10px 15px', margin: '5px', backgroundColor: '#007bff', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>
+      <button onClick={() => navigate('/users/usuarios')} style={{ padding: '10px 15px', margin: '5px', backgroundColor: '#007bff', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>
         Cancelar
       </button>
     </div>

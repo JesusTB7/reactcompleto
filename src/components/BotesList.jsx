@@ -28,7 +28,7 @@ const BotesList = () => {
     useEffect(() => {
         // Cargar la lista de botes
         axios
-            .get("http://localhost:3000/api/bote", {
+            .get("http://localhost:5000/bot/botes", {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
             })
             .then((response) => {
@@ -39,7 +39,7 @@ const BotesList = () => {
 
         // Cargar la lista de municipios
         axios
-            .get("http://localhost:3000/api/municipio", {
+            .get("http://localhost:5000/muni/municipios", {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
             })
             .then((response) => {
@@ -52,7 +52,7 @@ const BotesList = () => {
     const handleDelete = (id) => {
         if (window.confirm("¿Seguro que deseas borrar este bote?")) {
             axios
-                .delete(`http://localhost:3000/api/eliminarbote/${id}`, {
+                .delete(`http://localhost:5000/bot/eliminarbote/${id}`, {
                     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
                 })
                 .then(() => {
@@ -65,7 +65,7 @@ const BotesList = () => {
 
     const handleLogout = () => {
         localStorage.removeItem("token");
-        navigate("/login");
+        navigate("/users/login");
     };
 
     const handleRegresar = () => {
@@ -144,7 +144,7 @@ const BotesList = () => {
                 />
             </div>
             <div style={{ display: "flex", justifyContent: "center", marginBottom: "10px", gap: "10px" }}>
-                <Link to="/crearbote">
+                <Link to="/bot/crearbote">
                     <button style={{ fontSize: "12px", padding: "5px 10px" }}>Agregar Bote</button>
                 </Link>
                 <button
@@ -163,21 +163,6 @@ const BotesList = () => {
                 >
                     Descargar Excel
                 </button>
-                <button 
-    onClick={() => window.location.href = "/importarbote"} 
-    style={{ 
-        backgroundColor: "skyblue",
-        color: "black", 
-        fontSize: "12px", 
-        padding: "5px 10px", 
-        marginBottom: "10px", 
-        gap: "10px", 
-        display: "flex", 
-        justifyContent: "center", 
-        width: "fit-content"
-    }}>
-    Importar
-</button>
             </div>
             <table>
                 <thead>
@@ -200,7 +185,7 @@ const BotesList = () => {
                                 <td>{bote.direccion}</td>
                                 <td>{bote.estado_sensor}</td>
                                 <td>
-                                    <Link to={`/editbote/${bote.id_bote}`}>
+                                    <Link to={`/bot/actualizarbote/${bote.id_bote}`}>
                                         <button>Editar</button>
                                     </Link>
                                     <button onClick={() => handleDelete(bote.id_bote)}>Eliminar</button>

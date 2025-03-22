@@ -28,7 +28,7 @@ const MunicipioList = () => {
     useEffect(() => {
         // Cargar los municipios
         axios
-            .get("http://localhost:3000/api/municipio", {
+            .get("http://localhost:5000/muni/municipios", {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
             })
             .then(response => {
@@ -39,7 +39,7 @@ const MunicipioList = () => {
 
         // Cargar la lista de estados
         axios
-            .get("http://localhost:3000/api/estado", {
+            .get("http://localhost:5000/state/estados", {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
             })
             .then(response => {
@@ -52,7 +52,7 @@ const MunicipioList = () => {
     const handleDelete = (id) => {
         if (window.confirm("¿Seguro que deseas borrar este municipio?")) {
             axios
-                .delete(`http://localhost:3000/api/eliminarmunicipio/${id}`, {
+                .delete(`http://localhost:5000/muni/eliminarmunicipio/${id}`, {
                     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
                 })
                 .then(() => {
@@ -139,7 +139,7 @@ const MunicipioList = () => {
                 />
             </div>
             <div style={{ display: "flex", justifyContent: "center", marginBottom: "10px", gap: "10px" }}>
-                <Link to="/crearmunicipio">
+                <Link to="/muni/crearmunicipio">
                     <button style={{ fontSize: "12px", padding: "5px 10px" }}>Agregar Municipio</button>
                 </Link>
                 <button 
@@ -158,21 +158,6 @@ const MunicipioList = () => {
                 >
                     Descargar Excel
                 </button>
-                <button 
-    onClick={() => window.location.href = "/importarmunicipio"} 
-    style={{ 
-        backgroundColor: "skyblue",
-        color: "black", 
-        fontSize: "12px", 
-        padding: "5px 10px", 
-        marginBottom: "10px", 
-        gap: "10px", 
-        display: "flex", 
-        justifyContent: "center", 
-        width: "fit-content"
-    }}>
-    Importar
-</button>
             </div>
             <table>
                 <thead>
@@ -191,7 +176,7 @@ const MunicipioList = () => {
                                 <td>{municipio.nombre}</td>
                                 <td>{getEstadoNombre(municipio.id_estado)}</td>
                                 <td>
-                                    <Link to={`/editmunicipio/${municipio.id_municipio}`}>
+                                    <Link to={`/muni/actualizarmunicipio/${municipio.id_municipio}`}>
                                         <button>Editar</button>
                                     </Link>
                                     <button onClick={() => handleDelete(municipio.id_municipio)}>Eliminar</button>

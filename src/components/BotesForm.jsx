@@ -16,7 +16,7 @@ const BotesForm = () => {
 
     useEffect(() => {
         // Cargar la lista de municipios
-        axios.get("http://localhost:3000/api/municipio")
+        axios.get("http://localhost:5000/muni/municipios")
             .then(response => {
                 setMunicipios(response.data);
             })
@@ -32,13 +32,13 @@ const BotesForm = () => {
         e.preventDefault();
         setLoading(true);
 
-        axios.post("http://localhost:3000/api/crearbote", bote)
+        axios.post("http://localhost:5000/bot/crearbote", bote)
             .then(() => {
                 setLoading(false);
                 setSuccess(true);
 
                 setTimeout(() => {
-                    navigate("/bote"); // Redirigir a la lista de botes
+                    navigate("/bot/botes"); // Redirigir a la lista de botes
                 }, 2000);
             })
             .catch(error => {
@@ -104,7 +104,7 @@ const BotesForm = () => {
 
                     <button type="submit">Agregar Bote</button>
                     <p>
-                        <span onClick={() => navigate("/bote")} style={{ cursor: "pointer", color: "blue", textDecoration: "none" }}>
+                        <span onClick={() => navigate("/bot/botes")} style={{ cursor: "pointer", color: "blue", textDecoration: "none" }}>
                             Regresar al Inicio
                         </span>
                     </p>

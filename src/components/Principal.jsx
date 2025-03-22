@@ -12,14 +12,13 @@ const Principal = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     const menuItems = [
-        { name: "Usuarios", route: "/usuarios" },
-        { name: "Pais", route: "/pais" },
-        { name: "Estado", route: "/estado" },
-        { name: "Municipio", route: "/municipio" },
-        { name: "Botes", route: "/bote" },
-        { name: "Asignaciones", route: "/asignacion" },
-        { name: "Mantenimiento", route: "/mantenimiento" },
-        { name: "Sensores", route: "/sensor" },
+        { name: "Usuarios", route: "/users/usuarios" },
+        { name: "Pais", route: "/country/paises" },
+        { name: "Estado", route: "/state/estados" },
+        { name: "Municipio", route: "/muni/municipios" },
+        { name: "Botes", route: "/bot/botes" },
+        { name: "Asignaciones", route: "/asig/asignaciones" },
+        { name: "Mantenimiento", route: "/mant/mantenimientos" },
     ];
 
     const getMunicipioNombre = (id_municipio) => {
@@ -29,7 +28,7 @@ const Principal = () => {
 
     useEffect(() => {
         axios
-            .get("http://localhost:3000/api/bote", {
+            .get("http://localhost:5000/bot/botes", {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
             })
             .then((response) => {
@@ -42,7 +41,7 @@ const Principal = () => {
             });
 
         axios
-            .get("http://localhost:3000/api/municipio", {
+            .get("http://localhost:5000/muni/municipios", {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
             })
             .then((response) => {
@@ -55,7 +54,7 @@ const Principal = () => {
         setIsLoggingOut(true);
         localStorage.removeItem("token");
         setTimeout(() => {
-            navigate("/login");
+            navigate("/users/login");
         }, 1000);
     };
 

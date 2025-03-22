@@ -15,7 +15,7 @@ const EstadoForm = () => {
 
     useEffect(() => {
         // Cargar la lista de países
-        axios.get("http://localhost:3000/api/pais")
+        axios.get("http://localhost:5000/country/paises")
             .then(response => {
                 setPaises(response.data);
             })
@@ -31,13 +31,13 @@ const EstadoForm = () => {
         e.preventDefault();
         setLoading(true);
 
-        axios.post("http://localhost:3000/api/crearestado", estado)
+        axios.post("http://localhost:5000/state/crearestado", estado)
             .then(() => {
                 setLoading(false);
                 setSuccess(true);
 
                 setTimeout(() => {
-                    navigate("/estado"); // Redirigir a la lista de estados
+                    navigate("/state/estados"); // Redirigir a la lista de estados
                 }, 2000);
             })
             .catch(error => {
@@ -81,7 +81,7 @@ const EstadoForm = () => {
 
                     <button type="submit">Agregar Estado</button>
                     <p>
-                        <span onClick={() => navigate("/estado")} style={{ cursor: "pointer", color: "blue", textDecoration: "none" }}>
+                        <span onClick={() => navigate("/state/estados")} style={{ cursor: "pointer", color: "blue", textDecoration: "none" }}>
                             Regresar al Inicio
                         </span>
                     </p>

@@ -14,7 +14,7 @@ const MunicipioEdit = () => {
 
     useEffect(() => {
         // Cargar los datos del municipio
-        axios.get(`http://localhost:3000/api/municipio/${id_municipio}`)
+        axios.get(`http://localhost:5000/muni/municipio/${id_municipio}`)
             .then(response => {
                 console.log("Datos del municipio recibidos:", response.data);
                 setMunicipio(response.data);
@@ -26,7 +26,7 @@ const MunicipioEdit = () => {
             });
 
         // Cargar la lista de estados
-        axios.get("http://localhost:3000/api/estado")
+        axios.get("http://localhost:5000/state/estados")
             .then(response => {
                 console.log("Lista de estados recibida:", response.data);
                 setEstados(response.data);
@@ -43,11 +43,11 @@ const MunicipioEdit = () => {
         setIsUpdating(true);
         setMessage("Actualizando municipio...");
 
-        axios.put(`http://localhost:3000/api/actualizarmunicipio/${id_municipio}`, municipio)
+        axios.put(`http://localhost:5000/muni/actualizarmunicipio/${id_municipio}`, municipio)
             .then(response => {
                 console.log("Respuesta del servidor:", response.data);
                 setMessage("Actualización exitosa. Redirigiendo...");
-                setTimeout(() => navigate("/municipio"), 2000);
+                setTimeout(() => navigate("/muni/municipios"), 2000);
             })
             .catch(error => {
                 console.error("Error al actualizar el municipio:", error);
@@ -82,7 +82,7 @@ const MunicipioEdit = () => {
                         <button type="submit" disabled={isUpdating}>
                             {isUpdating ? "Cargando..." : "Actualizar Municipio"}
                         </button>
-                        <button type="button" onClick={() => navigate("/municipio")} className="cancel-button">
+                        <button type="button" onClick={() => navigate("/muni/municipios")} className="cancel-button">
                             Cancelar
                         </button>
                     </div>

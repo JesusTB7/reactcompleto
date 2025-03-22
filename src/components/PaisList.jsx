@@ -12,7 +12,7 @@ const PaisList = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/pais", {
+        axios.get("http://localhost:5000/country/paises", {
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
         })
         .then(response => {
@@ -23,7 +23,7 @@ const PaisList = () => {
 
     const handleDelete = (id) => {
         if (window.confirm("¿Seguro que deseas borrar este país?")) {
-            axios.delete(`http://localhost:3000/api/eliminarpais/${id}`, {
+            axios.delete(`http://localhost:5000/country/eliminarpais/${id}`, {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
             })
             .then(() => {
@@ -43,7 +43,7 @@ const PaisList = () => {
 
     const handleLogout = () => {
         localStorage.removeItem("token");
-        navigate("/login");
+        navigate("/users/login");
     };
 
     const handleRegresar = () => {
@@ -71,7 +71,7 @@ const PaisList = () => {
                 />
             </div>
             <div style={{ display: "flex", justifyContent: "center", marginBottom: "10px", gap: "10px" }}>
-                <Link to="/crearpais">
+                <Link to="/country/crearpais">
                     <button style={{ fontSize: "12px", padding: "5px 10px" }}>Agregar País</button>
                 </Link>
                 <button 
@@ -89,22 +89,6 @@ const PaisList = () => {
     }}>
     Descargar Excel
 </button>
-<button 
-    onClick={() => window.location.href = "/importarpais"} 
-    style={{ 
-        backgroundColor: "skyblue", 
-        color: "black", 
-        fontSize: "12px", 
-        padding: "5px 10px", 
-        marginBottom: "10px", 
-        gap: "10px", 
-        display: "flex", 
-        justifyContent: "center", 
-        width: "fit-content"
-    }}>
-    Importar
-</button>
-
             </div>
             <table>
                 <thead>
@@ -121,7 +105,7 @@ const PaisList = () => {
                                 <td>{pais.id_pais}</td>
                                 <td>{pais.nombre}</td>
                                 <td>
-                                    <Link to={`/editpais/${pais.id_pais}`}>
+                                    <Link to={`/country/actualizarpais/${pais.id_pais}`}>
                                         <button>Editar</button>
                                     </Link>
                                     <button onClick={() => handleDelete(pais.id_pais)}>Eliminar</button>

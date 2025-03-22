@@ -21,7 +21,7 @@ const RecuperarContrasena = () => {
 
   const handleRecuperarContrasena = async () => {
     try {
-      const response = await axios.post("http://localhost:3000/api/recuperar", { correo });
+      const response = await axios.post("http://localhost:5000/users/recuperar", { correo });
       if (response.data.exito) {
         setStep(2);
         setMensaje(""); // Limpiar el mensaje si todo está bien
@@ -54,7 +54,7 @@ const RecuperarContrasena = () => {
 
       setCargando(true); // Activar animación de carga
       try {
-        const response = await axios.put("http://localhost:3000/api/actualizar-contrasena", {
+        const response = await axios.put("http://localhost:5000/users/actualizar-contrasena", {
           correo,
           nuevaContrasena
         });
@@ -67,7 +67,7 @@ const RecuperarContrasena = () => {
             setConfirmarContrasena("");
             setMensaje("");
             setCargando(false);
-            navigate("/login");
+            navigate("/users/login");
           }, 2000);
         } else {
           setMensaje("Hubo un problema al actualizar la contraseña.");
@@ -128,7 +128,7 @@ const RecuperarContrasena = () => {
             >
               Cambiar Contraseña
             </button>
-            <button type="button" onClick={() => navigate("/login")} className="cancel-button">
+            <button type="button" onClick={() => navigate("/users/login")} className="cancel-button">
               Cancelar
             </button>
             {mensaje && <p style={{ color: "red" }}>{mensaje}</p>}
