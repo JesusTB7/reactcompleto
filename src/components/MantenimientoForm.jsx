@@ -17,7 +17,7 @@ const MantenimientoForm = () => {
 
     useEffect(() => {
         // Cargar la lista de usuarios
-        axios.get("http://localhost:5000/users/usuarios", {
+        axios.get("https://3.145.49.233/users/usuarios", {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}` // Obtiene el token del almacenamiento local
             }
@@ -29,7 +29,7 @@ const MantenimientoForm = () => {
         
 
         // Cargar la lista de botes
-        axios.get("http://localhost:5000/bot/botes")
+        axios.get("https://3.145.49.233/bot/botes")
             .then(response => {
                 setBotes(response.data);
             })
@@ -45,7 +45,7 @@ const MantenimientoForm = () => {
         e.preventDefault();
         setLoading(true);
 
-        axios.post("http://localhost:5000/mant/crearmantenimiento", mantenimiento)
+        axios.post("https://3.145.49.233/mant/crearmantenimiento", mantenimiento)
             .then(() => {
                 setLoading(false);
                 setSuccess(true);

@@ -27,7 +27,7 @@ const UsuarioForm = () => {
         e.preventDefault();
         setLoading(true);
         
-        axios.post("http://localhost:5000/users/crearusuario", usuario)
+        axios.post("https://3.145.49.233/users/crearusuario", usuario)
     .then(() => {
         setLoading(false);
         setSuccess(true);

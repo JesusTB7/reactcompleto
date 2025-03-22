@@ -28,7 +28,7 @@ const MantenimientoList = () => {
 
     useEffect(() => {
         // Cargar mantenimientos
-        axios.get("http://localhost:5000/mant/mantenimientos", {
+        axios.get("https://3.145.49.233/mant/mantenimientos", {
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
         })
         .then(response => {
@@ -38,7 +38,7 @@ const MantenimientoList = () => {
         .catch(error => console.error("Error al obtener mantenimientos:", error));
 
         // Cargar usuarios
-        axios.get("http://localhost:5000/users/usuarios", {
+        axios.get("https://3.145.49.233/users/usuarios", {
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
         })
         .then(response => {
@@ -48,7 +48,7 @@ const MantenimientoList = () => {
         .catch(error => console.error("Error al obtener usuarios:", error));
 
         // Cargar botes
-        axios.get("http://localhost:5000/bot/botes", {
+        axios.get("https://3.145.49.233/bot/botes", {
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
         })
         .then(response => {
@@ -60,7 +60,7 @@ const MantenimientoList = () => {
 
     const handleDelete = (id) => {
         if (window.confirm("¿Seguro que deseas borrar este mantenimiento?")) {
-            axios.delete(`http://localhost:5000/mant/eliminarmantenimiento/${id}`, {
+            axios.delete(`https://3.145.49.233/mant/eliminarmantenimiento/${id}`, {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
             })
             .then(() => {

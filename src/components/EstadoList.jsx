@@ -28,7 +28,7 @@ const EstadoList = () => {
     useEffect(() => {
         // Cargar los estados
         axios
-            .get("http://localhost:5000/state/estados", {
+            .get("https://3.145.49.233/state/estados", {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
             })
             .then((response) => {
@@ -39,7 +39,7 @@ const EstadoList = () => {
 
         // Cargar la lista de países
         axios
-            .get("http://localhost:5000/country/paises", {
+            .get("https://3.145.49.233/country/paises", {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
             })
             .then((response) => {
@@ -52,7 +52,7 @@ const EstadoList = () => {
     const handleDelete = (id) => {
         if (window.confirm("¿Seguro que deseas borrar este estado?")) {
             axios
-                .delete(`http://localhost:5000/state/eliminarestado/${id}`, {
+                .delete(`https://3.145.49.233/state/eliminarestado/${id}`, {
                     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
                 })
                 .then(() => {

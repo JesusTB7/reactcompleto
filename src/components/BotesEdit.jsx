@@ -14,7 +14,7 @@ const BotesEdit = () => {
 
     useEffect(() => {
         // Cargar los datos del bote
-        axios.get(`http://localhost:5000/bot/bote/${id_bote}`)
+        axios.get(`https://3.145.49.233/bot/bote/${id_bote}`)
             .then(response => {
                 console.log("Datos del bote recibidos:", response.data);
                 setBote(response.data);
@@ -26,7 +26,7 @@ const BotesEdit = () => {
             });
 
         // Cargar la lista de municipios
-        axios.get("http://localhost:5000/muni/municipios")
+        axios.get("https://3.145.49.233/muni/municipios")
             .then(response => {
                 console.log("Lista de municipios recibida:", response.data);
                 setMunicipios(response.data);
@@ -44,7 +44,7 @@ const BotesEdit = () => {
         setIsUpdating(true);
         setMessage("Actualizando bote...");
 
-        axios.put(`http://localhost:5000/bot/actualizarbote/${id_bote}`, bote)
+        axios.put(`https://3.145.49.233/bot/actualizarbote/${id_bote}`, bote)
             .then(response => {
                 console.log("Respuesta del servidor:", response.data);
                 setMessage("Actualización exitosa. Redirigiendo...");

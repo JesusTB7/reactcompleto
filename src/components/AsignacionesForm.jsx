@@ -17,14 +17,14 @@ const AsignacionesForm = () => {
 
     useEffect(() => {
         // Cargar la lista de botes
-        axios.get("http://localhost:5000/bot/botes")
+        axios.get("https://3.145.49.233/bot/botes")
             .then(response => {
                 setBotes(response.data);
             })
             .catch(error => console.error("Error al cargar los botes:", error));
 
         // Cargar la lista de usuarios
-        axios.get("http://localhost:5000/users/usuarios", {
+        axios.get("https://3.145.49.233/users/usuarios", {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}` // Obtiene el token del almacenamiento local
             }
@@ -44,7 +44,7 @@ const AsignacionesForm = () => {
         e.preventDefault();
         setLoading(true);
 
-        axios.post("http://localhost:5000/asig/crearasignacion", asignacion)
+        axios.post("https://3.145.49.233/asig/crearasignacion", asignacion)
             .then(() => {
                 setLoading(false);
                 setSuccess(true);

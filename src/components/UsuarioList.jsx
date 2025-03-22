@@ -25,7 +25,7 @@ const UsuarioList = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get("http://localhost:5000/users/usuarios", {
+        axios.get("https://3.145.49.233/users/usuarios", {
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
         })
         .then(response => {
@@ -36,7 +36,7 @@ const UsuarioList = () => {
 
     const handleDelete = (id) => {
         if (window.confirm("¿Seguro que deseas borrar este usuario?")) {
-            axios.delete(`http://localhost:5000/users/eliminarusuario/${id}`, {
+            axios.delete(`https://3.145.49.233/users/eliminarusuario/${id}`, {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
             })
             .then(() => {

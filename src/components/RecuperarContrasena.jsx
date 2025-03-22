@@ -21,7 +21,7 @@ const RecuperarContrasena = () => {
 
   const handleRecuperarContrasena = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/users/recuperar", { correo });
+      const response = await axios.post("https://3.145.49.233/users/recuperar", { correo });
       if (response.data.exito) {
         setStep(2);
         setMensaje(""); // Limpiar el mensaje si todo está bien
@@ -54,7 +54,7 @@ const RecuperarContrasena = () => {
 
       setCargando(true); // Activar animación de carga
       try {
-        const response = await axios.put("http://localhost:5000/users/actualizar-contrasena", {
+        const response = await axios.put("https://3.145.49.233/users/actualizar-contrasena", {
           correo,
           nuevaContrasena
         });

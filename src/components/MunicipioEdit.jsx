@@ -14,7 +14,7 @@ const MunicipioEdit = () => {
 
     useEffect(() => {
         // Cargar los datos del municipio
-        axios.get(`http://localhost:5000/muni/municipio/${id_municipio}`)
+        axios.get(`https://3.145.49.233/muni/municipio/${id_municipio}`)
             .then(response => {
                 console.log("Datos del municipio recibidos:", response.data);
                 setMunicipio(response.data);
@@ -26,7 +26,7 @@ const MunicipioEdit = () => {
             });
 
         // Cargar la lista de estados
-        axios.get("http://localhost:5000/state/estados")
+        axios.get("https://3.145.49.233/state/estados")
             .then(response => {
                 console.log("Lista de estados recibida:", response.data);
                 setEstados(response.data);
@@ -43,7 +43,7 @@ const MunicipioEdit = () => {
         setIsUpdating(true);
         setMessage("Actualizando municipio...");
 
-        axios.put(`http://localhost:5000/muni/actualizarmunicipio/${id_municipio}`, municipio)
+        axios.put(`https://3.145.49.233/muni/actualizarmunicipio/${id_municipio}`, municipio)
             .then(response => {
                 console.log("Respuesta del servidor:", response.data);
                 setMessage("Actualización exitosa. Redirigiendo...");

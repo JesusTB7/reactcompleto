@@ -15,7 +15,7 @@ const MantenimientoEdit = () => {
 
     useEffect(() => {
         // Cargar los datos del mantenimiento
-        axios.get(`http://localhost:5000/mant/mantenimiento/${id_mantenimiento}`)
+        axios.get(`https://3.145.49.233/mant/mantenimiento/${id_mantenimiento}`)
             .then(response => {
                 console.log("Datos del mantenimiento recibidos:", response.data);
                 
@@ -34,7 +34,7 @@ const MantenimientoEdit = () => {
             });
 
         // Cargar la lista de usuarios
-        axios.get("http://localhost:5000/users/usuarios", {
+        axios.get("https://3.145.49.233/users/usuarios", {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}` // Obtiene el token del almacenamiento local
             }
@@ -45,7 +45,7 @@ const MantenimientoEdit = () => {
         .catch(error => console.error("Error al cargar los usuarios:", error));
 
         // Cargar la lista de botes
-        axios.get("http://localhost:5000/bot/botes")
+        axios.get("https://3.145.49.233/bot/botes")
             .then(response => {
                 console.log("Lista de botes recibida:", response.data);
                 setBotes(response.data);
@@ -62,7 +62,7 @@ const MantenimientoEdit = () => {
         setIsUpdating(true);
         setMessage("Actualizando mantenimiento...");
 
-        axios.put(`http://localhost:5000/mant/actualizarmantenimiento/${id_mantenimiento}`, mantenimiento)
+        axios.put(`https://3.145.49.233/mant/actualizarmantenimiento/${id_mantenimiento}`, mantenimiento)
             .then(response => {
                 console.log("Respuesta del servidor:", response.data);
                 setMessage("Actualización exitosa. Redirigiendo...");

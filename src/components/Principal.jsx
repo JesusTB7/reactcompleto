@@ -28,7 +28,7 @@ const Principal = () => {
 
     useEffect(() => {
         axios
-            .get("http://localhost:5000/bot/botes", {
+            .get("https://3.145.49.233/bot/botes", {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
             })
             .then((response) => {
@@ -41,7 +41,7 @@ const Principal = () => {
             });
 
         axios
-            .get("http://localhost:5000/muni/municipios", {
+            .get("https://3.145.49.233/muni/municipios", {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
             })
             .then((response) => {

@@ -28,7 +28,7 @@ const MunicipioList = () => {
     useEffect(() => {
         // Cargar los municipios
         axios
-            .get("http://localhost:5000/muni/municipios", {
+            .get("https://3.145.49.233/muni/municipios", {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
             })
             .then(response => {
@@ -39,7 +39,7 @@ const MunicipioList = () => {
 
         // Cargar la lista de estados
         axios
-            .get("http://localhost:5000/state/estados", {
+            .get("https://3.145.49.233/state/estados", {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
             })
             .then(response => {
@@ -52,7 +52,7 @@ const MunicipioList = () => {
     const handleDelete = (id) => {
         if (window.confirm("¿Seguro que deseas borrar este municipio?")) {
             axios
-                .delete(`http://localhost:5000/muni/eliminarmunicipio/${id}`, {
+                .delete(`https://3.145.49.233/muni/eliminarmunicipio/${id}`, {
                     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
                 })
                 .then(() => {
