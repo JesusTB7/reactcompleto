@@ -26,12 +26,18 @@ const Principal = () => {
         return municipio ? municipio.nombre : "Desconocido";
     };
 
-    useEffect(() => {
+    const fetchBotes = () => {
         axios
             .get("https://3.145.49.233/bot/botes", {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
             })
             .then((response) => {
+                response.data.forEach((bote) => {
+                    const existingBote = botes.find((b) => b.id_bote === bote.id_bote);
+                    if (existingBote && existingBote.estado_sensor !== bote.estado_sensor && bote.estado_sensor === "Activo") {
+                        toast.warning(`¡Alerta! El bote ${bote.clave} está lleno.`, { position: toast.POSITION.TOP_RIGHT });
+                    }
+                });
                 setBotes(response.data);
                 setIsLoading(false);
             })
@@ -39,7 +45,15 @@ const Principal = () => {
                 console.error("Error al obtener botes:", error);
                 setIsLoading(false);
             });
+    };
 
+    useEffect(() => {
+        fetchBotes();
+        const interval = setInterval(fetchBotes, 10000);
+        return () => clearInterval(interval);
+    }, [botes]);
+
+    useEffect(() => {
         axios
             .get("https://3.145.49.233/muni/municipios", {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
