@@ -10,7 +10,16 @@ const Principal = () => {
     const [botes, setBotes] = useState([]);
     const [municipios, setMunicipios] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [alertaMostrada, setAlertaMostrada] = useState({});
+
+    const menuItems = [
+        { name: "Usuarios", route: "/users/usuarios" },
+        { name: "Pais", route: "/country/paises" },
+        { name: "Estado", route: "/state/estados" },
+        { name: "Municipio", route: "/muni/municipios" },
+        { name: "Botes", route: "/bot/botes" },
+        { name: "Asignaciones", route: "/asig/asignaciones" },
+        { name: "Mantenimiento", route: "/mant/mantenimientos" },
+    ];
 
     const getMunicipioNombre = (id_municipio) => {
         const municipio = municipios.find((m) => m.id_municipio === id_municipio);
@@ -49,7 +58,6 @@ const Principal = () => {
         return () => clearInterval(interval); // Limpia el intervalo al desmontar
     }, [alertaMostrada]);
 
-    useEffect(() => {
         axios
             .get("https://3.145.49.233/muni/municipios", {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -89,20 +97,37 @@ const Principal = () => {
                     transition={{ duration: 0.5 }}
                     style={{ height: "50px", objectFit: "contain", border: "2px solid black", borderRadius: "5px", padding: "2px" }}
                 />
-                <motion.button
-                    onClick={handleLogout}
-                    whileHover={{ scale: 1.1, backgroundColor: "#d32f2f" }}
-                    whileTap={{ scale: 0.9 }}
-                    animate={{ opacity: isLoggingOut ? 0.5 : 1 }}
-                    style={{
-                        backgroundColor: "#f44336", color: "white", padding: "10px",
-                        border: "none", cursor: "pointer", fontSize: "16px", borderRadius: "5px",
-                        fontWeight: "500", transition: "background-color 0.3s ease"
-                    }}
-                    disabled={isLoggingOut}
-                >
-                    {isLoggingOut ? "Cerrando..." : "Cerrar sesión"}
-                </motion.button>
+                <div style={{ display: "flex", gap: "20px" }}>
+                    {menuItems.map((item, index) => (
+                        <motion.button
+                            key={index}
+                            onClick={() => navigate(item.route)}
+                            whileHover={{ scale: 1.1, color: "#0077b6" }}
+                            whileTap={{ scale: 0.9 }}
+                            style={{
+                                backgroundColor: "transparent", color: "black", border: "none",
+                                cursor: "pointer", textAlign: "center", padding: "10px", fontSize: "16px",
+                                fontWeight: "500", transition: "color 0.3s ease"
+                            }}
+                        >
+                            {item.name}
+                        </motion.button>
+                    ))}
+                    <motion.button
+                        onClick={handleLogout}
+                        whileHover={{ scale: 1.1, backgroundColor: "#d32f2f" }}
+                        whileTap={{ scale: 0.9 }}
+                        animate={{ opacity: isLoggingOut ? 0.5 : 1 }}
+                        style={{
+                            backgroundColor: "#f44336", color: "white", padding: "10px",
+                            border: "none", cursor: "pointer", fontSize: "16px", borderRadius: "5px",
+                            fontWeight: "500", transition: "background-color 0.3s ease"
+                        }}
+                        disabled={isLoggingOut}
+                    >
+                        {isLoggingOut ? "Cerrando..." : "Cerrar sesión"}
+                    </motion.button>
+                </div>
             </motion.div>
 
             <div style={{ marginTop: "150px", width: "80%" }}>
@@ -131,8 +156,7 @@ const Principal = () => {
                                         <td>
                                             <motion.div
                                                 style={{
-                                                    width: "30px", height: "30px", borderRadius: "50%",
-                                                    backgroundColor: bote.estado_sensor === "Lleno" ? "red" : bote.estado_sensor === "Activo" ? "green" : "gray",
+                                                    width: "30px", height: "30px", borderRadius: "50%", backgroundColor: bote.estado_sensor === "Activo" ? "green" : "red",
                                                     transition: "background-color 0.5s ease"
                                                 }}
                                             />
