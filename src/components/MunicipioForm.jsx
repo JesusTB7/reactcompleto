@@ -15,7 +15,7 @@ const MunicipioForm = () => {
 
     useEffect(() => {
         // Cargar la lista de estados
-        axios.get("https://3.145.49.233/state/estados")
+        axios.get("https://startupvje.vje.x10.mx/state/estados")
             .then(response => {
                 setEstados(response.data);
             })
@@ -31,7 +31,7 @@ const MunicipioForm = () => {
         e.preventDefault();
         setLoading(true);
 
-        axios.post("https://3.145.49.233/muni/crearmunicipio", municipio)
+        axios.post("https://startupvje.vje.x10.mx/muni/crearmunicipio", municipio)
             .then(() => {
                 setLoading(false);
                 setSuccess(true);

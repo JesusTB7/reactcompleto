@@ -12,7 +12,7 @@ const PaisList = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get("https://3.145.49.233/country/paises", {
+        axios.get("https://startupvje.vje.x10.mx/country/paises", {
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
         })
         .then(response => {
@@ -23,7 +23,7 @@ const PaisList = () => {
 
     const handleDelete = (id) => {
         if (window.confirm("¿Seguro que deseas borrar este país?")) {
-            axios.delete(`https://3.145.49.233/country/eliminarpais/${id}`, {
+            axios.delete(`https://startupvje.vje.x10.mx/country/eliminarpais/${id}`, {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
             })
             .then(() => {

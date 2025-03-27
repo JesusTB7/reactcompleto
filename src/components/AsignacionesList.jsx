@@ -28,21 +28,21 @@ const AsignacionesList = () => {
 
     useEffect(() => {
         // Cargar asignaciones
-        axios.get("https://3.145.49.233/asig/asignaciones", {
+        axios.get("https://startupvje.vje.x10.mx/asig/asignaciones", {
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
         })
         .then(response => setAsignaciones(response.data))
         .catch(error => console.error("Error al obtener asignaciones:", error));
 
         // Cargar botes
-        axios.get("https://3.145.49.233/bot/botes", {
+        axios.get("https://startupvje.vje.x10.mx/bot/botes", {
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
         })
         .then(response => setBotes(response.data))
         .catch(error => console.error("Error al obtener botes:", error));
 
         // Cargar usuarios
-        axios.get("https://3.145.49.233/users/usuarios", {
+        axios.get("https://startupvje.vje.x10.mx/users/usuarios", {
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
         })
         .then(response => setUsuarios(response.data))
@@ -51,7 +51,7 @@ const AsignacionesList = () => {
 
     const handleDelete = (id) => {
         if (window.confirm("¿Seguro que deseas borrar esta asignación?")) {
-            axios.delete(`https://3.145.49.233/asig/eliminarasignacion/${id}`, {
+            axios.delete(`hhttps://startupvje.vje.x10.mx/asig/eliminarasignacion/${id}`, {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
             })
             .then(() => setAsignaciones(prev => prev.filter(asignacion => asignacion.id_asignacion !== id)))

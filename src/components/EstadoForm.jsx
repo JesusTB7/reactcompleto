@@ -15,7 +15,7 @@ const EstadoForm = () => {
 
     useEffect(() => {
         // Cargar la lista de países
-        axios.get("https://3.145.49.233/country/paises")
+        axios.get("https://startupvje.vje.x10.mx/country/paises")
             .then(response => {
                 setPaises(response.data);
             })
@@ -31,7 +31,7 @@ const EstadoForm = () => {
         e.preventDefault();
         setLoading(true);
 
-        axios.post("https://3.145.49.233/state/crearestado", estado)
+        axios.post("https://startupvje.vje.x10.mx/state/crearestado", estado)
             .then(() => {
                 setLoading(false);
                 setSuccess(true);

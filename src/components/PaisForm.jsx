@@ -21,7 +21,7 @@ const PaisForm = () => {
         e.preventDefault();
         setLoading(true);
         
-        axios.post("https://3.145.49.233/country/crearpais", pais)
+        axios.post("https://startupvje.vje.x10.mx/country/crearpais", pais)
             .then(() => {
                 setLoading(false);
                 setSuccess(true);

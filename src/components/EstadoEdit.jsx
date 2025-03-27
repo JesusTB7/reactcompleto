@@ -14,7 +14,7 @@ const EstadoEdit = () => {
 
     useEffect(() => {
         // Cargar los datos del estado
-        axios.get(`https://3.145.49.233/state/estado/${id_estado}`)
+        axios.get(`https://startupvje.vje.x10.mx/state/estado/${id_estado}`)
             .then(response => {
                 console.log("Datos del estado recibidos:", response.data);
                 setEstado(response.data);
@@ -26,7 +26,7 @@ const EstadoEdit = () => {
             });
 
         // Cargar la lista de países
-        axios.get("https://3.145.49.233/country/paises")
+        axios.get("https://startupvje.vje.x10.mx/country/paises")
             .then(response => {
                 console.log("Lista de países recibida:", response.data);
                 setPaises(response.data);
@@ -43,7 +43,7 @@ const EstadoEdit = () => {
         setIsUpdating(true);
         setMessage("Actualizando estado...");
 
-        axios.put(`https://3.145.49.233/state/actualizarestado/${id_estado}`, estado)
+        axios.put(`https://startupvje.vje.x10.mx/state/actualizarestado/${id_estado}`, estado)
             .then(response => {
                 console.log("Respuesta del servidor:", response.data);
                 setMessage("Actualización exitosa. Redirigiendo...");

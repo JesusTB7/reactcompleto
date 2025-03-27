@@ -12,7 +12,7 @@ const PaisEdit = () => {
     const [message, setMessage] = useState("");
 
     useEffect(() => {
-        axios.get(`https://3.145.49.233/country/pais/${id_pais}`)
+        axios.get(`https://startupvje.vje.x10.mx/country/pais/${id_pais}`)
             .then(response => {
                 console.log("Datos recibidos:", response.data);
                 setPais(response.data);
@@ -33,7 +33,7 @@ const PaisEdit = () => {
         setIsUpdating(true);
         setMessage("Actualizando país...");
 
-        axios.put(`https://3.145.49.233/country/actualizarpais/${id_pais}`, pais)
+        axios.put(`https://startupvje.vje.x10.mx/country/actualizarpais/${id_pais}`, pais)
             .then(response => {
                 console.log("Respuesta del servidor:", response.data);
                 setMessage("Actualización exitosa. Redirigiendo...");

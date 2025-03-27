@@ -16,7 +16,7 @@ const BotesForm = () => {
 
     useEffect(() => {
         // Cargar la lista de municipios
-        axios.get("https://3.145.49.233/muni/municipios")
+        axios.get("https://startupvje.vje.x10.mx/muni/municipios")
             .then(response => {
                 setMunicipios(response.data);
             })
@@ -32,7 +32,7 @@ const BotesForm = () => {
         e.preventDefault();
         setLoading(true);
 
-        axios.post("https://3.145.49.233/bot/crearbote", bote)
+        axios.post("https://startupvje.vje.x10.mx/bot/crearbote", bote)
             .then(() => {
                 setLoading(false);
                 setSuccess(true);

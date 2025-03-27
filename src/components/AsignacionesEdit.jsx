@@ -15,7 +15,7 @@ const AsignacionesEdit = () => {
 
     useEffect(() => {
         // Cargar los datos de la asignación
-        axios.get(`https://3.145.49.233/asig/asignacion/${id_asignacion}`)
+        axios.get(`https://startupvje.vje.x10.mx/asig/asignacion/${id_asignacion}`)
             .then(response => {
                 console.log("Datos de la asignación recibidos:", response.data);
                 setAsignacion(response.data);
@@ -27,7 +27,7 @@ const AsignacionesEdit = () => {
             });
 
         // Cargar la lista de botes
-        axios.get("https://3.145.49.233/bot/botes")
+        axios.get("https://startupvje.vje.x10.mx/bot/botes")
             .then(response => {
                 console.log("Lista de botes recibida:", response.data);
                 setBotes(response.data);
@@ -35,7 +35,7 @@ const AsignacionesEdit = () => {
             .catch(error => console.error("Error al cargar los botes:", error));
 
         // Cargar la lista de usuarios
-axios.get("https://3.145.49.233/users/usuarios", {
+axios.get("https://startupvje.vje.x10.mx/users/usuarios", {
     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
 })
 .then(response => {
@@ -55,7 +55,7 @@ axios.get("https://3.145.49.233/users/usuarios", {
         setIsUpdating(true);
         setMessage("Actualizando asignación...");
 
-        axios.put(`https://3.145.49.233/asig/actualizarasignacion/${id_asignacion}`, asignacion)
+        axios.put(`https://startupvje.vje.x10.mx/asig/actualizarasignacion/${id_asignacion}`, asignacion)
             .then(response => {
                 console.log("Respuesta del servidor:", response.data);
                 setMessage("Actualización exitosa. Redirigiendo...");

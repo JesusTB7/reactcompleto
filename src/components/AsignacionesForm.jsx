@@ -17,14 +17,14 @@ const AsignacionesForm = () => {
 
     useEffect(() => {
         // Cargar la lista de botes
-        axios.get("https://3.145.49.233/bot/botes")
+        axios.get("https://startupvje.vje.x10.mx/bot/botes")
             .then(response => {
                 setBotes(response.data);
             })
             .catch(error => console.error("Error al cargar los botes:", error));
 
         // Cargar la lista de usuarios
-        axios.get("https://3.145.49.233/users/usuarios", {
+        axios.get("https://startupvje.vje.x10.mx/users/usuarios", {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}` // Obtiene el token del almacenamiento local
             }
@@ -44,7 +44,7 @@ const AsignacionesForm = () => {
         e.preventDefault();
         setLoading(true);
 
-        axios.post("https://3.145.49.233/asig/crearasignacion", asignacion)
+        axios.post("https://startupvje.vje.x10.mx/asig/crearasignacion", asignacion)
             .then(() => {
                 setLoading(false);
                 setSuccess(true);

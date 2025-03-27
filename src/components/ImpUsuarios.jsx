@@ -31,7 +31,7 @@ const ImpUsuarios = () => {
         for (const row of rows) {
           const { nombre, app, apm, fn, sexo, correo, contrasena } = row;
           const usuario = { nombre, app, apm, fn, sexo, correo, contrasena };
-          await axios.post('https://3.145.49.233/users/crearusuario', usuario);
+          await axios.post('https://startupvje.vje.x10.mx/users/crearusuario', usuario);
         }
         alert('Datos cargados correctamente');
         navigate('/users/usuarios');

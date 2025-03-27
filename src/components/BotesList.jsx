@@ -28,7 +28,7 @@ const BotesList = () => {
     useEffect(() => {
         // Cargar la lista de botes
         axios
-            .get("https://3.145.49.233/bot/botes", {
+            .get("https://startupvje.vje.x10.mx/bot/botes", {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
             })
             .then((response) => {
@@ -39,7 +39,7 @@ const BotesList = () => {
 
         // Cargar la lista de municipios
         axios
-            .get("https://3.145.49.233/muni/municipios", {
+            .get("https://startupvje.vje.x10.mx/muni/municipios", {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
             })
             .then((response) => {
@@ -52,7 +52,7 @@ const BotesList = () => {
     const handleDelete = (id) => {
         if (window.confirm("¿Seguro que deseas borrar este bote?")) {
             axios
-                .delete(`https://3.145.49.233/bot/eliminarbote/${id}`, {
+                .delete(`https://startupvje.vje.x10.mx/bot/eliminarbote/${id}`, {
                     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
                 })
                 .then(() => {
