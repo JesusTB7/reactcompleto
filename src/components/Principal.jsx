@@ -58,7 +58,7 @@ const Principal = () => {
     useEffect(() => {
         fetchBotes(); // Llamada inicial
 
-        const interval = setInterval(fetchBotes, 100); // Actualizar cada 2 segundos
+        const interval = setInterval(fetchBotes, 10); // Actualizar cada 
 
         return () => clearInterval(interval); // Limpiar intervalo al desmontar
     }, []);
