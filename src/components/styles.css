@@ -65,33 +65,6 @@ button:last-child {
     color: white;
 }
 
-@media (max-width: 768px) {
-    table {
-        display: block;
-        overflow-x: auto;
-        width: 100%;
-    }
-    button {
-        width: 100%;
-    }
-    /* Ajustar el contenedor del menú */
-    div[style*="display: flex"][style*="justify-content: space-between"] {
-        flex-direction: column;
-        align-items: center;
-    }
-    /* Espaciado entre los botones */
-    div[style*="display: flex"][style*="gap: 20px"] {
-        flex-direction: column;
-        gap: 10px;
-        width: 100%;
-        align-items: center;
-    }
-    /* Asegurar que el botón de cerrar sesión no quede fuera */
-    button[style*="background-color: #f44336"] {
-        width: 80%;
-        max-width: 200px;
-        text-align: center;
-    }
-}
+
 
 
