@@ -90,8 +90,8 @@ const Principal2 = () => {
                     whileTap={{ scale: 0.9 }}
                     animate={{ opacity: isLoggingOut ? 0.5 : 1 }}
                     style={{
-                        backgroundColor: "#f44336", color: "white", padding: "15px 25px",
-                        border: "none", cursor: "pointer", fontSize: "18px", borderRadius: "10px",
+                        backgroundColor: "#f44336", color: "white", padding: "12px 18px",
+                        border: "none", cursor: "pointer", fontSize: "16px", borderRadius: "10px",
                         fontWeight: "bold", transition: "background-color 0.3s ease"
                     }}
                     disabled={isLoggingOut}
