@@ -26,7 +26,7 @@ const Principal2 = () => {
             .then((response) => {
                 setBotes(response.data);
                 setIsLoading(false);
-    
+
                 const bote = response.data.find(bote => bote.id_bote === 1);
                 if (bote && bote.estado_sensor === "Activo") {
                     setAlertMessage(`⚠️ ¡Alerta! El bote con clave ${bote.clave} está lleno.`);
@@ -43,7 +43,7 @@ const Principal2 = () => {
 
     useEffect(() => {
         fetchBotes();
-        const interval = setInterval(fetchBotes, 100);
+        const interval = setInterval(fetchBotes, 5000);
         return () => clearInterval(interval);
     }, []);
 
@@ -82,9 +82,6 @@ const Principal2 = () => {
                 <motion.img
                     src="/img/Logo.jpg"
                     alt="Logo"
-                    initial={{ scale: 0.8, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ duration: 0.5 }}
                     style={{ height: "50px", objectFit: "contain", border: "2px solid black", borderRadius: "5px", padding: "2px" }}
                 />
                 <motion.button
@@ -93,9 +90,9 @@ const Principal2 = () => {
                     whileTap={{ scale: 0.9 }}
                     animate={{ opacity: isLoggingOut ? 0.5 : 1 }}
                     style={{
-                        backgroundColor: "#f44336", color: "white", padding: "10px",
-                        border: "none", cursor: "pointer", fontSize: "16px", borderRadius: "5px",
-                        fontWeight: "500", transition: "background-color 0.3s ease"
+                        backgroundColor: "#f44336", color: "white", padding: "15px 25px",
+                        border: "none", cursor: "pointer", fontSize: "18px", borderRadius: "10px",
+                        fontWeight: "bold", transition: "background-color 0.3s ease"
                     }}
                     disabled={isLoggingOut}
                 >

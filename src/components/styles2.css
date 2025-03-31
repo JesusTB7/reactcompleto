@@ -67,3 +67,15 @@ button:hover {
 .cancel-button:hover {
     background-color: #a71d2a;
 }
+
+@media (max-width: 768px) {
+    table {
+        display: block;
+        overflow-x: auto;
+        width: 100%;
+    }
+    button {
+        width: 100%;
+    }
+}
+

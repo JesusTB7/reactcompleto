@@ -64,3 +64,15 @@ button:last-child {
     background-color: #4f84d9; /* Azul */
     color: white;
 }
+
+@media (max-width: 768px) {
+    table {
+        display: block;
+        overflow-x: auto;
+        width: 100%;
+    }
+    button {
+        width: 100%;
+    }
+}
+

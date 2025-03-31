@@ -84,3 +84,14 @@ span:hover {
         transform: translateY(0); /* Vuelve a su posición original */
     }
 }
+
+@media (max-width: 768px) {
+    table {
+        display: block;
+        overflow-x: auto;
+        width: 100%;
+    }
+    button {
+        width: 100%;
+    }
+}
