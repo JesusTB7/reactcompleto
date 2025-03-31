@@ -42,11 +42,9 @@ const Principal = () => {
                 if (bote && bote.estado_sensor === "Activo") {
                     setAlertMessage(`⚠️ ¡Alerta! El bote con clave ${bote.clave} está lleno.`);
                     setShowAlert(true);
-    
-                    // Ocultar la alerta después de 5 segundos
-                    setTimeout(() => {
-                        setShowAlert(false);
-                    }, 5000);
+                } else {
+                    // Ocultar la alerta si el estado del bote cambia
+                    setShowAlert(false);
                 }
             })
             .catch((error) => {
@@ -58,7 +56,7 @@ const Principal = () => {
     useEffect(() => {
         fetchBotes(); // Llamada inicial
 
-        const interval = setInterval(fetchBotes, 10); // Actualizar cada 
+        const interval = setInterval(fetchBotes, 100); // Actualizar cada 
 
         return () => clearInterval(interval); // Limpiar intervalo al desmontar
     }, []);
