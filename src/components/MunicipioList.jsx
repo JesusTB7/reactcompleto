@@ -28,7 +28,7 @@ const MunicipioList = () => {
     useEffect(() => {
         // Cargar los municipios
         axios
-            .get("https://startupvje.vje.x10.mxhttps://3.145.49.233/muni/municipios", {
+            .get("https://startupvje.vje.x10.mx/muni/municipios", {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
             })
             .then(response => {
