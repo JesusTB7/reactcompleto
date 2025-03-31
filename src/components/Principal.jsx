@@ -26,7 +26,7 @@ const Principal = () => {
         return municipio ? municipio.nombre : "Desconocido";
     };
 
-    useEffect(() => {
+    const fetchBotes = () => {
         axios
             .get("https://startupvje.vje.x10.mx/bot/botes", {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -34,12 +34,29 @@ const Principal = () => {
             .then((response) => {
                 setBotes(response.data);
                 setIsLoading(false);
+
+                // Verificar si hay algún bote lleno y mostrar alerta
+                response.data.forEach((bote) => {
+                    if (bote.estado_sensor === "Lleno") {
+                        alert(`⚠️ ¡Alerta! El bote con clave ${bote.clave} está lleno.`);
+                    }
+                });
             })
             .catch((error) => {
                 console.error("Error al obtener botes:", error);
                 setIsLoading(false);
             });
+    };
 
+    useEffect(() => {
+        fetchBotes(); // Llamada inicial
+
+        const interval = setInterval(fetchBotes, 2000); // Actualizar cada 2 segundos
+
+        return () => clearInterval(interval); // Limpiar intervalo al desmontar
+    }, []);
+
+    useEffect(() => {
         axios
             .get("https://startupvje.vje.x10.mx/muni/municipios", {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -138,7 +155,7 @@ const Principal = () => {
                                         <td>
                                             <motion.div
                                                 style={{
-                                                    width: "30px", height: "30px", borderRadius: "50%", backgroundColor: bote.estado_sensor === "Activo" ? "green" : "red",
+                                                    width: "30px", height: "30px", borderRadius: "50%", backgroundColor: bote.estado_sensor === "Activo" ? "green" : bote.estado_sensor === "Lleno" ? "red" : "gray",
                                                     transition: "background-color 0.5s ease"
                                                 }}
                                             />
@@ -159,5 +176,3 @@ const Principal = () => {
 };
 
 export default Principal;
-
-
