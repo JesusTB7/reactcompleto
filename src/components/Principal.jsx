@@ -6,6 +6,8 @@ import "./styles.css";
 
 const Principal = () => {
     const navigate = useNavigate();
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
     const [isLoggingOut, setIsLoggingOut] = useState(false);
     const [botes, setBotes] = useState([]);
     const [municipios, setMunicipios] = useState([]);
@@ -133,6 +135,16 @@ const Principal = () => {
                     </motion.button>
                 </div>
             </motion.div>
+
+            {showAlert && (
+    <div style={{
+        backgroundColor: "red", color: "white", padding: "10px",
+        borderRadius: "5px", position: "fixed", top: "80px", left: "50%",
+        transform: "translateX(-50%)", zIndex: 1000, fontWeight: "bold"
+    }}>
+        {alertMessage}
+    </div>
+)}
 
             <div style={{ marginTop: "150px", width: "80%" }}>
                 <h2>Información de Botes en el Municipio de Lerma</h2>
