@@ -38,6 +38,7 @@ import MantenimientoForm from "./components/MantenimientoForm";
 
 import HomeContrasena from "./pages/HomeContrasena";
 import HomePrincipal from "./pages/HomePrincipal";
+import HomePrincipal2 from "./pages/HomePrincipal2";
 
 import HomeUsuario from "./pages/HomeUsuario";
 import HomePais from "./pages/HomePais";
@@ -62,7 +63,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 
             <Route
     path="/principal2"
-    element={isAuthenticated() ? <HomePrincipal /> : <Navigate to="/users/login" />}
+    element={isAuthenticated() ? <HomePrincipal2 /> : <Navigate to="/users/login" />}
 />
         
             <Route

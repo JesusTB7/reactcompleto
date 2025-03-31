@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import axios from "axios";
 import "./styles.css";
 
-const Principal = () => {
+const Principal2 = () => {
     const navigate = useNavigate();
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
@@ -27,13 +27,11 @@ const Principal = () => {
                 setBotes(response.data);
                 setIsLoading(false);
     
-                // Verificar si el bote con id_bote 1 está lleno y mostrar alerta
                 const bote = response.data.find(bote => bote.id_bote === 1);
                 if (bote && bote.estado_sensor === "Activo") {
                     setAlertMessage(`⚠️ ¡Alerta! El bote con clave ${bote.clave} está lleno.`);
                     setShowAlert(true);
                 } else {
-                    // Ocultar la alerta si el estado del bote cambia
                     setShowAlert(false);
                 }
             })
@@ -44,11 +42,9 @@ const Principal = () => {
     };
 
     useEffect(() => {
-        fetchBotes(); // Llamada inicial
-
-        const interval = setInterval(fetchBotes, 100); // Actualizar cada 
-
-        return () => clearInterval(interval); // Limpiar intervalo al desmontar
+        fetchBotes();
+        const interval = setInterval(fetchBotes, 100);
+        return () => clearInterval(interval);
     }, []);
 
     useEffect(() => {
@@ -91,48 +87,31 @@ const Principal = () => {
                     transition={{ duration: 0.5 }}
                     style={{ height: "50px", objectFit: "contain", border: "2px solid black", borderRadius: "5px", padding: "2px" }}
                 />
-                <div style={{ display: "flex", gap: "20px" }}>
-                    {menuItems.map((item, index) => (
-                        <motion.button
-                            key={index}
-                            onClick={() => navigate(item.route)}
-                            whileHover={{ scale: 1.1, color: "#0077b6" }}
-                            whileTap={{ scale: 0.9 }}
-                            style={{
-                                backgroundColor: "transparent", color: "black", border: "none",
-                                cursor: "pointer", textAlign: "center", padding: "10px", fontSize: "16px",
-                                fontWeight: "500", transition: "color 0.3s ease"
-                            }}
-                        >
-                            {item.name}
-                        </motion.button>
-                    ))}
-                    <motion.button
-                        onClick={handleLogout}
-                        whileHover={{ scale: 1.1, backgroundColor: "#d32f2f" }}
-                        whileTap={{ scale: 0.9 }}
-                        animate={{ opacity: isLoggingOut ? 0.5 : 1 }}
-                        style={{
-                            backgroundColor: "#f44336", color: "white", padding: "10px",
-                            border: "none", cursor: "pointer", fontSize: "16px", borderRadius: "5px",
-                            fontWeight: "500", transition: "background-color 0.3s ease"
-                        }}
-                        disabled={isLoggingOut}
-                    >
-                        {isLoggingOut ? "Cerrando..." : "Cerrar sesión"}
-                    </motion.button>
-                </div>
+                <motion.button
+                    onClick={handleLogout}
+                    whileHover={{ scale: 1.1, backgroundColor: "#d32f2f" }}
+                    whileTap={{ scale: 0.9 }}
+                    animate={{ opacity: isLoggingOut ? 0.5 : 1 }}
+                    style={{
+                        backgroundColor: "#f44336", color: "white", padding: "10px",
+                        border: "none", cursor: "pointer", fontSize: "16px", borderRadius: "5px",
+                        fontWeight: "500", transition: "background-color 0.3s ease"
+                    }}
+                    disabled={isLoggingOut}
+                >
+                    {isLoggingOut ? "Cerrando..." : "Cerrar sesión"}
+                </motion.button>
             </motion.div>
 
             {showAlert && (
-    <div style={{
-        backgroundColor: "red", color: "white", padding: "10px",
-        borderRadius: "5px", position: "fixed", top: "80px", left: "50%",
-        transform: "translateX(-50%)", zIndex: 1000, fontWeight: "bold"
-    }}>
-        {alertMessage}
-    </div>
-)}
+                <div style={{
+                    backgroundColor: "red", color: "white", padding: "10px",
+                    borderRadius: "5px", position: "fixed", top: "80px", left: "50%",
+                    transform: "translateX(-50%)", zIndex: 1000, fontWeight: "bold"
+                }}>
+                    {alertMessage}
+                </div>
+            )}
 
             <div style={{ marginTop: "150px", width: "80%" }}>
                 <h2>Información de Botes en el Municipio de Lerma</h2>
@@ -180,4 +159,4 @@ const Principal = () => {
     );
 };
 
-export default Principal;
+export default Principal2;
