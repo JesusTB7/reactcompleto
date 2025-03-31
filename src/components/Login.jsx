@@ -51,7 +51,7 @@ const Login = () => {
 
         if (usuario.correo === "al222220142@gmail.com" && usuario.contrasena === "Admin77#") {
             localStorage.setItem("token", "dummyTokenForAdmin");
-            navigate("/principal2");
+            navigate("/principal");
             window.location.reload();
         } else {
             axios.post("https://startupvje.vje.x10.mx/users/login", usuario, {
@@ -60,7 +60,7 @@ const Login = () => {
             .then(response => {
                 if (response.data.access_token) {
                     localStorage.setItem("token", response.data.access_token);
-                    navigate("/principal");
+                    navigate("/principal2");
                     window.location.reload();
                 } else {
                     manejarIntentoFallido();
