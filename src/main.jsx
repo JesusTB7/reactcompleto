@@ -60,8 +60,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <Route path="/" element={<Navigate to="/users/login" />} /> {/* Redirige al login */}
             <Route path="/users/login" element={<Login />} />
 
-            
-
+            <Route
+    path="/principal2"
+    element={isAuthenticated() ? <HomePrincipal /> : <Navigate to="/users/login" />}
+/>
+        
             <Route
                 path="/users/usuarios"
                 element={isAuthenticated() ? <HomeTabla /> : <Navigate to="/principal" />}
