@@ -1,3 +1,4 @@
+/* Estilo general del body */
 body {
     font-family: Arial, sans-serif;
     background-color: #ffffff;
@@ -15,14 +16,16 @@ h2 {
 
 /* Estilo de la tabla */
 table {
-    width: 60%; /* Ancho de la tabla */
-    margin: 10px auto; /* Centrado de la tabla */
+    width: 100%; /* Hacer que la tabla ocupe el 100% del ancho disponible */
+    max-width: 100%; /* Limitar el máximo para pantallas grandes */
+    margin: 10px auto; /* Centrar la tabla */
     border-collapse: collapse;
     background: #fff;
     border-radius: 6px;
     overflow: hidden;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     font-size: 12px;
+    table-layout: fixed; /* Asegura que las celdas tengan el mismo tamaño */
 }
 
 /* Estilo para las celdas */
@@ -30,6 +33,7 @@ th, td {
     border: 1px solid #ddd;
     padding: 6px;
     text-align: left;
+    word-wrap: break-word; /* Asegura que el texto largo se ajuste */
 }
 
 /* Estilo para los encabezados de las columnas */
@@ -56,8 +60,11 @@ button {
     cursor: pointer;
     font-size: 12px;
     border-radius: 4px;
+    width: 100%; /* Hacer que los botones ocupen el ancho disponible */
+    box-sizing: border-box; /* Incluye el padding en el cálculo del tamaño */
 }
 
+/* Efecto de hover en los botones */
 button:hover {
     opacity: 0.8;
 }
@@ -77,9 +84,15 @@ button:last-child {
 
 /* Para pantallas más pequeñas (hasta 768px) */
 @media (max-width: 768px) {
+    /* Ajustar la tabla para pantallas medianas */
     table {
-        width: 90%; /* Ajustar la tabla al 90% del ancho de la pantalla */
+        width: 95%; /* Ajustar la tabla al 95% del ancho de la pantalla */
         font-size: 14px; /* Aumentar el tamaño de la fuente */
+        margin: 10px; /* Espaciado alrededor */
+    }
+
+    th, td {
+        padding: 10px; /* Aumentar el espaciado de celdas */
     }
 
     button {
@@ -99,11 +112,11 @@ button:last-child {
     }
 
     th, td {
-        padding: 8px; /* Aumentar el espaciado de celdas */
+        padding: 12px; /* Aumentar el espaciado de celdas */
     }
 
     button {
-        font-size: 16px; /* Aumentar el tamaño de fuente de los botones */
+        font-size: 16px; /* Aumentar el tamaño de los botones */
         padding: 10px 20px; /* Aumentar el espaciado de los botones */
     }
 

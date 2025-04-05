@@ -37,11 +37,13 @@ const Principal = () => {
                 setBotes(response.data);
                 setIsLoading(false);
     
+                // Verificar si el bote con id_bote 1 está lleno y mostrar alerta
                 const bote = response.data.find(bote => bote.id_bote === 1);
                 if (bote && bote.estado_sensor === "Activo") {
                     setAlertMessage(`⚠️ ¡Alerta! El bote con clave ${bote.clave} está lleno.`);
                     setShowAlert(true);
                 } else {
+                    // Ocultar la alerta si el estado del bote cambia
                     setShowAlert(false);
                 }
             })
@@ -52,9 +54,11 @@ const Principal = () => {
     };
 
     useEffect(() => {
-        fetchBotes();
-        const interval = setInterval(fetchBotes, 10000); // Cambié el intervalo a 10 segundos (10000ms)
-        return () => clearInterval(interval);
+        fetchBotes(); // Llamada inicial
+
+        const interval = setInterval(fetchBotes, 100); // Actualizar cada 
+
+        return () => clearInterval(interval); // Limpiar intervalo al desmontar
     }, []);
 
     useEffect(() => {
@@ -131,14 +135,14 @@ const Principal = () => {
             </motion.div>
 
             {showAlert && (
-                <div style={{
-                    backgroundColor: "red", color: "white", padding: "10px",
-                    borderRadius: "5px", position: "fixed", top: "80px", left: "50%",
-                    transform: "translateX(-50%)", zIndex: 1000, fontWeight: "bold"
-                }}>
-                    {alertMessage}
-                </div>
-            )}
+    <div style={{
+        backgroundColor: "red", color: "white", padding: "10px",
+        borderRadius: "5px", position: "fixed", top: "80px", left: "50%",
+        transform: "translateX(-50%)", zIndex: 1000, fontWeight: "bold"
+    }}>
+        {alertMessage}
+    </div>
+)}
 
             <div style={{ marginTop: "150px", width: "80%" }}>
                 <h2>Información de Botes en el Municipio de Lerma</h2>
