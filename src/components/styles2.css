@@ -1,6 +1,6 @@
 /* Estilo general para el formulario */
 .form-container {
-    width: 30%;
+    width: 90%;
     max-width: 500px;
     margin: 30px auto;
     background: white;
@@ -72,43 +72,43 @@ button:hover {
 /* --- Responsividad para pantallas más pequeñas --- */
 @media (max-width: 768px) {
     .form-container {
-        width: 60%; /* Aumentamos el ancho del formulario al 80% en pantallas más pequeñas */
-        padding: 10px; /* Reducimos el padding en dispositivos pequeños */
+        width: 95%; /* Margen más pequeño */
+        padding: 15px;
     }
 
     h2 {
-        font-size: 18px; /* Ajustamos el tamaño del título */
+        font-size: 18px;
     }
 
     input, select, button {
-        font-size: 14px; /* Reducimos el tamaño de la fuente de los inputs y botones */
-        padding: 8px; /* Reducimos el padding de los inputs y botones */
+        font-size: 14px;
+        padding: 8px;
     }
 
     .button-group {
-        flex-direction: column; /* Alineamos los botones en columna en pantallas pequeñas */
-        gap: 15px;
+        flex-direction: column;
+        gap: 10px;
     }
 }
 
-/* --- Para pantallas aún más pequeñas (dispositivos móviles hasta 480px) --- */
+/* Móviles pequeños */
 @media (max-width: 480px) {
     .form-container {
-        width: 50%; /* El formulario ocupará el 90% del ancho en dispositivos móviles */
-        padding: 5px; /* Ajustamos aún más el padding */
+        width: 95%; /* Deja margen pequeño a los lados */
+        padding: 10px;
     }
 
     h2 {
-        font-size: 16px; /* Reducimos el tamaño del título para pantallas más pequeñas */
+        font-size: 16px;
     }
 
     input, select, button {
-        font-size: 12px; /* Hacemos más pequeña la fuente */
-        padding: 6px; /* Reducimos el padding */
+        font-size: 13px;
+        padding: 6px;
     }
 
     .button-group {
-        flex-direction: column; /* Los botones estarán en columna */
-        gap: 15px; /* Ajustamos el espacio entre los botones */
+        flex-direction: column;
+        gap: 10px;
     }
 }
