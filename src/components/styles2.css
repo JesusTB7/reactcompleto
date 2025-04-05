@@ -1,6 +1,6 @@
 /* Estilos generales */
 .form-container {
-    width: 40%; /* Ancho del formulario */
+    width: 30%; /* Ancho del formulario */
     max-width: 500px; /* Ancho máximo */
     margin: 30px auto; /* Centrado en la pantalla */
     background: white; /* Fondo blanco */
@@ -74,7 +74,7 @@ button:hover {
 /* Para pantallas más pequeñas (hasta 768px) */
 @media (max-width: 768px) {
     .form-container {
-        width: 90%; /* Ajustar el formulario al 90% del ancho */
+        width: 80%; /* Ajustar el formulario al 90% del ancho */
         padding: 20px; /* Reducir el espaciado */
     }
 
