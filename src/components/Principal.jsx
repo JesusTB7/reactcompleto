@@ -12,6 +12,7 @@ const Principal = () => {
     const [botes, setBotes] = useState([]);
     const [municipios, setMunicipios] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [isMenuOpen, setIsMenuOpen] = useState(false); // Estado para la barra de menú en móviles
 
     const menuItems = [
         { name: "Usuarios", route: "/users/usuarios" },
@@ -56,7 +57,7 @@ const Principal = () => {
     useEffect(() => {
         fetchBotes(); // Llamada inicial
 
-        const interval = setInterval(fetchBotes, 100); // Actualizar cada 
+        const interval = setInterval(fetchBotes, 100); // Actualizar cada 100ms
 
         return () => clearInterval(interval); // Limpiar intervalo al desmontar
     }, []);
@@ -90,7 +91,7 @@ const Principal = () => {
                     position: "fixed", top: 0, width: "90%", display: "flex",
                     justifyContent: "space-between", alignItems: "center", padding: "15px 20px",
                     backgroundColor: "#f0f0f0", boxShadow: "0px 4px 10px rgba(0,0,0,0.3)", zIndex: 1000,
-                    borderRadius: "10px", marginTop: "10px"
+                    borderRadius: "10px", marginTop: "10px", flexWrap: "wrap"
                 }}
             >
                 <motion.img
@@ -101,7 +102,22 @@ const Principal = () => {
                     transition={{ duration: 0.5 }}
                     style={{ height: "50px", objectFit: "contain", border: "2px solid black", borderRadius: "5px", padding: "2px" }}
                 />
-                <div style={{ display: "flex", gap: "20px" }}>
+
+                {/* Botón de menú para móviles */}
+                <motion.button
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    style={{
+                        backgroundColor: "transparent", color: "black", border: "none",
+                        cursor: "pointer", fontSize: "24px", fontWeight: "500", display: "none", // Ocultar en escritorio
+                    }}
+                >
+                    ☰
+                </motion.button>
+
+                {/* Menú en pantalla grande */}
+                <div className={`menu-items ${isMenuOpen ? "open" : ""}`} style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
                     {menuItems.map((item, index) => (
                         <motion.button
                             key={index}
@@ -135,21 +151,21 @@ const Principal = () => {
             </motion.div>
 
             {showAlert && (
-    <div style={{
-        backgroundColor: "red", color: "white", padding: "10px",
-        borderRadius: "5px", position: "fixed", top: "80px", left: "50%",
-        transform: "translateX(-50%)", zIndex: 1000, fontWeight: "bold"
-    }}>
-        {alertMessage}
-    </div>
-)}
+                <div style={{
+                    backgroundColor: "red", color: "white", padding: "10px",
+                    borderRadius: "5px", position: "fixed", top: "80px", left: "50%",
+                    transform: "translateX(-50%)", zIndex: 1000, fontWeight: "bold"
+                }}>
+                    {alertMessage}
+                </div>
+            )}
 
             <div style={{ marginTop: "150px", width: "80%" }}>
                 <h2>Información de Botes en el Municipio de Lerma</h2>
                 {isLoading ? (
                     <p>Cargando datos...</p>
                 ) : (
-                    <table border="1" style={{ width: "80%", textAlign: "left", borderCollapse: "collapse" }}>
+                    <table border="1" style={{ width: "100%", textAlign: "left", borderCollapse: "collapse" }}>
                         <thead>
                             <tr>
                                 <th>BOTE</th>

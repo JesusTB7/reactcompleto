@@ -103,4 +103,36 @@ button:last-child {
     h2 {
         font-size: 12px; /* Ajustar el tamaño del título para pantallas más pequeñas */
     }
+
+/* Estilos adicionales para hacer el menú responsivo */
+.menu-items {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.menu-items.open {
+    display: flex;
+    flex-direction: column; /* Apila los elementos en móviles */
+}
+
+@media (max-width: 768px) {
+    .menu-items {
+        display: none; /* Esconde el menú en móviles por defecto */
+    }
+
+    .menu-items.open {
+        display: flex; /* Muestra el menú cuando está abierto */
+    }
+
+    .menu-items button {
+        padding: 15px;
+        font-size: 18px;
+    }
+
+    button {
+        display: block; /* Asegura que el botón de menú se muestre solo en móviles */
+    }
+}
+
 }
