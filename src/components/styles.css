@@ -6,15 +6,17 @@ body {
     padding: 0;
 }
 
+/* Estilo para el título */
 h2 {
     text-align: center;
     margin-bottom: 15px;
     font-size: 18px;
 }
 
+/* Estilo de la tabla */
 table {
-    width: 60%;
-    margin: 10px auto;
+    width: 60%; /* Ancho de la tabla */
+    margin: 10px auto; /* Centrado de la tabla */
     border-collapse: collapse;
     background: #fff;
     border-radius: 6px;
@@ -23,25 +25,30 @@ table {
     font-size: 12px;
 }
 
+/* Estilo para las celdas */
 th, td {
     border: 1px solid #ddd;
     padding: 6px;
     text-align: left;
 }
 
+/* Estilo para los encabezados de las columnas */
 th {
     background-color: #e0e0e0;
     font-weight: bold;
 }
 
+/* Estilo para las filas pares */
 tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
+/* Estilo para filas cuando se pasa el ratón */
 tr:hover {
     background-color: #e0e0e0;
 }
 
+/* Estilos para los botones */
 button {
     border: none;
     padding: 5px 10px;
@@ -55,6 +62,7 @@ button:hover {
     opacity: 0.8;
 }
 
+/* Estilo para los botones de acción */
 button:first-child {
     background-color: #4CAF50; /* Verde */
     color: white;
@@ -65,6 +73,41 @@ button:last-child {
     color: white;
 }
 
+/* --- Estilos Responsivos --- */
 
+/* Para pantallas más pequeñas (hasta 768px) */
+@media (max-width: 768px) {
+    table {
+        width: 90%; /* Ajustar la tabla al 90% del ancho de la pantalla */
+        font-size: 14px; /* Aumentar el tamaño de la fuente */
+    }
 
+    button {
+        font-size: 14px; /* Aumentar el tamaño de los botones */
+    }
 
+    h2 {
+        font-size: 16px; /* Ajustar el tamaño de la fuente del título */
+    }
+}
+
+/* Para dispositivos móviles (hasta 480px) */
+@media (max-width: 480px) {
+    table {
+        width: 100%; /* Ajustar la tabla al 100% del ancho */
+        font-size: 16px; /* Aumentar el tamaño de la fuente */
+    }
+
+    th, td {
+        padding: 8px; /* Aumentar el espaciado de celdas */
+    }
+
+    button {
+        font-size: 16px; /* Aumentar el tamaño de fuente de los botones */
+        padding: 10px 20px; /* Aumentar el espaciado de los botones */
+    }
+
+    h2 {
+        font-size: 18px; /* Ajustar tamaño del título */
+    }
+}
