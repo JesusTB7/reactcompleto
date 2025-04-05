@@ -72,7 +72,7 @@ button:hover {
 /* --- Responsividad para pantallas más pequeñas --- */
 @media (max-width: 768px) {
     .form-container {
-        width: 80%; /* Aumentamos el ancho del formulario al 80% en pantallas más pequeñas */
+        width: 60%; /* Aumentamos el ancho del formulario al 80% en pantallas más pequeñas */
         padding: 20px; /* Reducimos el padding en dispositivos pequeños */
     }
 
@@ -94,7 +94,7 @@ button:hover {
 /* --- Para pantallas aún más pequeñas (dispositivos móviles hasta 480px) --- */
 @media (max-width: 480px) {
     .form-container {
-        width: 90%; /* El formulario ocupará el 90% del ancho en dispositivos móviles */
+        width: 50%; /* El formulario ocupará el 90% del ancho en dispositivos móviles */
         padding: 15px; /* Ajustamos aún más el padding */
     }
 
