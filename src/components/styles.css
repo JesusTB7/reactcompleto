@@ -66,8 +66,8 @@ button:last-child {
 @media (max-width: 768px) {
     /* Ajustar la tabla en pantallas móviles */
     table {
-        width: 100%; /* Hacer la tabla más pequeña en pantallas pequeñas */
-        font-size: 10px; /* Reducir el tamaño de la fuente */
+        width: 40%; /* Hacer la tabla más pequeña en pantallas pequeñas */
+        font-size: 9px; /* Reducir el tamaño de la fuente */
     }
 
     th, td {
@@ -75,20 +75,20 @@ button:last-child {
     }
 
     button {
-        font-size: 12px; /* Ajustar el tamaño de los botones */
-        padding: 8px 16px; /* Ajustar el tamaño de los botones */
+        font-size: 10px; /* Ajustar el tamaño de los botones */
+        padding: 8px 12px; /* Ajustar el tamaño de los botones */
     }
 
     h2 {
-        font-size: 16px; /* Ajustar tamaño del título */
+        font-size: 14px; /* Ajustar tamaño del título */
     }
 }
 
 /* --- Para dispositivos móviles más pequeños (hasta 480px) --- */
 @media (max-width: 480px) {
     table {
-        width: 100%; /* Hacer la tabla al 100% del ancho de la pantalla */
-        font-size: 10px; /* Reducir aún más el tamaño de la fuente */
+        width: 30%; /* Hacer la tabla al 100% del ancho de la pantalla */
+        font-size: 8px; /* Reducir aún más el tamaño de la fuente */
     }
 
     th, td {
@@ -96,11 +96,11 @@ button:last-child {
     }
 
     button {
-        font-size: 12px; /* Ajustar tamaño de los botones */
-        padding: 6px 12px; /* Reducir el tamaño de los botones */
+        font-size: 9px; /* Ajustar tamaño de los botones */
+        padding: 7px 11px; /* Reducir el tamaño de los botones */
     }
 
     h2 {
-        font-size: 14px; /* Ajustar el tamaño del título para pantallas más pequeñas */
+        font-size: 12px; /* Ajustar el tamaño del título para pantallas más pequeñas */
     }
 }
