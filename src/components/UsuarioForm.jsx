@@ -92,7 +92,7 @@ const UsuarioForm = () => {
 />
 
 
-                    <button type="submit">Agregar Usuario</button>
+                    <button type="submit">Registrarse</button>
                     <p><span onClick={() => navigate("/users/login")} style={{ cursor: "pointer", color: "blue", textDecoration: "none" }}>Regresar al Inicio</span></p>
                 </form>
             )}
