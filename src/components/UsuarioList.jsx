@@ -169,7 +169,6 @@ const UsuarioList = () => {
                         <th>FECHA DE NACIMIENTO</th>
                         <th>SEXO</th>
                         <th>CORREO</th>
-                        <th>CONTRASEÑA</th>
                         <th>ACCIONES</th>
                     </tr>
                 </thead>
