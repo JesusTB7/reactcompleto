@@ -9,11 +9,13 @@ const RecuperarContrasena = () => {
   const [mensaje, setMensaje] = useState("");
   const [cargando, setCargando] = useState(false);
   const [step, setStep] = useState(1);
+  const [mostrarContrasena, setMostrarContrasena] = useState(false);
+  const [mostrarConfirmar, setMostrarConfirmar] = useState(false);
   const navigate = useNavigate();
 
   const handleCorreoChange = (e) => {
     setCorreo(e.target.value);
-    setMensaje(""); // Limpiar el mensaje cuando el usuario escribe un correo
+    setMensaje("");
   };
 
   const handleNuevaContrasenaChange = (e) => setNuevaContrasena(e.target.value);
@@ -24,7 +26,7 @@ const RecuperarContrasena = () => {
       const response = await axios.post("https://startupvje.vje.x10.mx/users/recuperar", { correo });
       if (response.data.exito) {
         setStep(2);
-        setMensaje(""); // Limpiar el mensaje si todo está bien
+        setMensaje("");
       } else {
         setMensaje("Correo no encontrado.");
       }
@@ -52,7 +54,7 @@ const RecuperarContrasena = () => {
         return;
       }
 
-      setCargando(true); // Activar animación de carga
+      setCargando(true);
       try {
         const response = await axios.put("https://startupvje.vje.x10.mx/users/actualizar-contrasena", {
           correo,
@@ -139,7 +141,7 @@ const RecuperarContrasena = () => {
           <div>
             <h2>Ingresa tu nueva contraseña</h2>
             <input
-              type="password"
+              type={mostrarContrasena ? "text" : "password"}
               placeholder="Nueva contraseña"
               value={nuevaContrasena}
               onChange={handleNuevaContrasenaChange}
@@ -151,8 +153,22 @@ const RecuperarContrasena = () => {
                 borderRadius: "5px"
               }}
             />
+            <button
+              type="button"
+              onClick={() => setMostrarContrasena(!mostrarContrasena)}
+              style={{
+                marginBottom: "10px",
+                background: "none",
+                border: "none",
+                color: "#007bff",
+                cursor: "pointer"
+              }}
+            >
+              {mostrarContrasena ? "Ocultar contraseña" : "Ver contraseña"}
+            </button>
+
             <input
-              type="password"
+              type={mostrarConfirmar ? "text" : "password"}
               placeholder="Confirmar contraseña"
               value={confirmarContrasena}
               onChange={handleConfirmarContrasenaChange}
@@ -165,6 +181,20 @@ const RecuperarContrasena = () => {
               }}
             />
             <button
+              type="button"
+              onClick={() => setMostrarConfirmar(!mostrarConfirmar)}
+              style={{
+                marginBottom: "10px",
+                background: "none",
+                border: "none",
+                color: "#007bff",
+                cursor: "pointer"
+              }}
+            >
+              {mostrarConfirmar ? "Ocultar contraseña" : "Ver contraseña"}
+            </button>
+
+            <button
               onClick={handleActualizarContrasena}
               style={{
                 width: "100%",
@@ -175,7 +205,7 @@ const RecuperarContrasena = () => {
                 borderRadius: "5px",
                 cursor: "pointer"
               }}
-              disabled={cargando} // Deshabilitar botón mientras carga
+              disabled={cargando}
             >
               {cargando ? "Cambiando..." : "Actualizar contraseña"}
             </button>

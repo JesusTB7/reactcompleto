@@ -184,7 +184,6 @@ const UsuarioList = () => {
                                 <td>{usuario.fn}</td>
                                 <td>{usuario.sexo}</td>
                                 <td>{usuario.correo}</td>
-                                <td>{usuario.contrasena}</td>
                                 <td>
                                     <Link to={`/users/actualizarusuario/${usuario.id_usuarios}`}>
                                         <button>Editar</button>
